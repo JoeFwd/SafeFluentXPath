@@ -1,6 +1,6 @@
 ﻿using XpathBuilder.Components;
 
-namespace XpathBuilder.Builders;
+namespace XPathBuilder.Builders.Core;
 public class XPathProcessor
 {
     private readonly List<XPathComponent> _xPathComponents = new();

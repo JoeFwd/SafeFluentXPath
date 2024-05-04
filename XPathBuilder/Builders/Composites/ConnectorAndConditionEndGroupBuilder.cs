@@ -5,11 +5,11 @@ namespace XpathBuilder.Builders.Composites;
 
 public class ConnectorAndConditionEndGroupBuilder : IConnectorAndConditionEndGroup
 {
-    private IConnector<IConnectorAndConditionEndGroup> _connector;
+    private IConnector<ICondition<IConnectorAndConditionEndGroup>> _connector;
 
     private IConditionEndGroup _conditionEndGroup;
 
-    internal void Init(IConnector<IConnectorAndConditionEndGroup> connector, IConditionEndGroup conditionEndGroup)
+    internal void Init(IConnector<ICondition<IConnectorAndConditionEndGroup>> connector, IConditionEndGroup conditionEndGroup)
     {
         _connector = connector;
         _conditionEndGroup = conditionEndGroup;

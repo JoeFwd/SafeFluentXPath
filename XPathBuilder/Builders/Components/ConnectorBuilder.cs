@@ -1,14 +1,15 @@
-﻿using XpathBuilder.Components;
+﻿using XPathBuilder.Builders.Core;
+using XpathBuilder.Components;
 using XpathBuilder.ReturnLogic;
 
-namespace XpathBuilder.Builders;
+namespace XPathBuilder.Builders.Components;
 
-public class ConnectorBuilder<R> : IConnector<R>
+public class ConnectorBuilder<TReturn> : IConnector<TReturn>
 {
     private readonly XPathProcessor _xPathProcessor;
-    private ICondition<R> _conditionBuilder;
+    private TReturn _conditionBuilder;
 
-    internal void Init(ICondition<R> conditionBuilder)
+    internal void Init(TReturn conditionBuilder)
     {
         _conditionBuilder = conditionBuilder;
     }
@@ -18,13 +19,13 @@ public class ConnectorBuilder<R> : IConnector<R>
         _xPathProcessor = xPathProcessor;
     }
 
-    public ICondition<R> And()
+    public TReturn And()
     {
         _xPathProcessor.AddXPathComponent(new Connector("and"));
         return _conditionBuilder;
     }
 
-    public ICondition<R> Or()
+    public TReturn Or()
     {
         _xPathProcessor.AddXPathComponent(new Connector("or"));
         return _conditionBuilder;

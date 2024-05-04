@@ -1,8 +1,9 @@
-﻿using XpathBuilder.Components;
+﻿using XPathBuilder.Builders.Core;
+using XpathBuilder.Components;
 using XpathBuilder.ReturnLogic;
 using XpathBuilder.ReturnLogic.Composites;
 
-namespace XpathBuilder.Builders;
+namespace XPathBuilder.Builders.Components;
 
 public class ConditionGroupBuilder : IConditionStartGroup, IConditionEndGroup
 {
@@ -25,13 +26,13 @@ public class ConditionGroupBuilder : IConditionStartGroup, IConditionEndGroup
 
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
-        _xPathProcessor.AddXPathComponent(new GroupedCondition());
+        _xPathProcessor.AddXPathComponent(new GroupedConditionStart());
         return _conditionBuilder;
     }
 
     public INodeAndConnector EndConditionGroup()
     {
-        _xPathProcessor.AddXPathComponent(new GroupedCondition());
+        _xPathProcessor.AddXPathComponent(new GroupedConditionEnd());
         return _nodeAndConnector;
     }
 }

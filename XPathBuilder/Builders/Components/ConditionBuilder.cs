@@ -1,57 +1,58 @@
-﻿using XpathBuilder.Components;
+﻿using XPathBuilder.Builders.Core;
+using XpathBuilder.Components;
 using XpathBuilder.ReturnLogic;
 
-namespace XpathBuilder.Builders;
+namespace XPathBuilder.Builders.Components;
 
-public class ConditionBuilder<R> : ICondition<R>
+public class ConditionBuilder<TReturn> : ICondition<TReturn>
 {
     private readonly XPathProcessor _xPathProcessor;
 
-    private readonly R _builderToReturn;
+    private TReturn _returnApi;
 
     private INode _node;
 
-    internal void Init(NodeBuilder nodeBuilder)
+    internal void Init(INode nodeBuilder, TReturn returnApi)
     {
         _node = nodeBuilder;
+        _returnApi = returnApi;
     }
 
-    public ConditionBuilder(XPathProcessor xPathProcessor, R builderToReturn)
+    public ConditionBuilder(XPathProcessor xPathProcessor)
     {
         _xPathProcessor = xPathProcessor;
-        _builderToReturn = builderToReturn;
     }
 
-    public R NodeHasName(string nodeName)
+    public TReturn NodeHasName(string nodeName)
     {
-        if (string.IsNullOrWhiteSpace(nodeName)) return _builderToReturn;
+        if (string.IsNullOrWhiteSpace(nodeName)) return _returnApi;
 
         string condition = $"name()='{nodeName}'";
         _xPathProcessor.AddXPathComponent(new Condition(condition));
-        return _builderToReturn;
+        return _returnApi;
     }
 
-    public R WithAttribute(string attributeName, string attributeValue)
+    public TReturn WithAttribute(string attributeName, string attributeValue)
     {
-        if (string.IsNullOrEmpty(attributeName)) return _builderToReturn;
+        if (string.IsNullOrEmpty(attributeName)) return _returnApi;
 
         string condition = $"@{attributeName}='{attributeValue ?? string.Empty}'";
         _xPathProcessor.AddXPathComponent(new Condition(condition));
-        return _builderToReturn;
+        return _returnApi;
     }
 
-    public R AtPosition(int position)
+    public TReturn AtPosition(int position)
     {
         string condition = $"position()={position}";
 
         _xPathProcessor.AddXPathComponent(new Condition(condition));
-        return _builderToReturn;
+        return _returnApi;
     }
 
-    public R ChildNodesAtSameLevel(params string[] elementNames)
+    public TReturn ChildNodesAtSameLevel(params string[] elementNames)
     {
         var validElementNames = elementNames.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-        if (validElementNames.Count == 0) return _builderToReturn;
+        if (validElementNames.Count == 0) return _returnApi;
 
         var xpathBuilder = _node.ChildNode("*");
 
@@ -63,6 +64,6 @@ public class ConditionBuilder<R> : ICondition<R>
                 xpathConditionBuilder.Or();
             }
         }
-        return _builderToReturn;
+        return _returnApi;
     }
 }

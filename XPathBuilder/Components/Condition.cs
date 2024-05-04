@@ -15,13 +15,16 @@ public class Condition : XPathComponent
         {
             case (null, _):
                 throw new InvalidOperationException("A condition must be preceded by a node or an operator");
-            case (Node, Node):
+            case (Node, null or Node):
                 return $"[{_condition}]";
             case (Node, Connector):
                 return $"[{_condition}";
-            case (Connector, Node):
-            case (Connector, null):
+            case (Connector, Node or null):
                 return $"{_condition}]";
+            case (GroupedConditionStart, _):
+                return $"{_condition}";
+            case (_, GroupedConditionEnd):
+                return $"{_condition}";
             default:
                 return _condition;
         }

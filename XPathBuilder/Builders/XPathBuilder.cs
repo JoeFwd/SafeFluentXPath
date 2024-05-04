@@ -1,71 +1,40 @@
-﻿using XpathBuilder.Builders.Composites;
+﻿using XPathBuilder.Builders.Core;
+using XPathBuilder.Builders.Factories;
 using XpathBuilder.ReturnLogic;
 using XpathBuilder.ReturnLogic.Composites;
 
 namespace XpathBuilder.Builders;
 
 public class XPathBuilder : INode,
-    IConnector<IConnectorAndConditionEndGroup>, IConditionStartGroup, IConditionEndGroup,
-    ICondition<INodeAndConnector>, ICondition<IConnectorAndConditionEndGroup>, IConnector<IConnectorAndConditionStartGroup>
+    IConnector<ICondition<IConnectorAndConditionEndGroup>>, IConditionStartGroup, IConditionEndGroup,
+    ICondition<INodeAndConnector>, ICondition<IConnectorAndConditionEndGroup>,
+    IConnector<ICondition<IConnectorAndConditionStartGroup>>
 {
-    private readonly XPathProcessor _xPathProcessor = new();
+    private readonly XPathProcessor _xPathProcessor = new ();
 
-    private readonly NodeBuilder _nodeBuilder;
-    private readonly ConnectorBuilder<IConnectorAndConditionStartGroup> _connectorRedirectedToChainedConditionBuilder;
-    private readonly ConnectorBuilder<IConnectorAndConditionEndGroup>
+    private readonly INode _nodeBuilder;
+
+    private readonly IConnector<ICondition<IConnectorAndConditionStartGroup>>
+        _connectorRedirectedToChainedConditionBuilder;
+
+    private readonly IConnector<ICondition<IConnectorAndConditionEndGroup>>
         _connectorRedirectedToConditionEndGroupBuilder;
 
-    private readonly ConditionGroupBuilder _conditionGroupBuilder;
-    private readonly ConditionBuilder<INodeAndConnector> _conditionRedirectedToNodeBuilder;
-    private readonly ConditionBuilder<IConnectorAndConditionStartGroup> _conditionRedirectedToStartGroupBuilder;
-    private readonly ConditionBuilder<IConnectorAndConditionEndGroup> _conditionRedirectedToEndGroupBuilder;
+    private readonly IConditionStartGroup _conditionStartGroupBuilder;
+    private readonly IConditionEndGroup _conditionEndGroupBuilder;
+    private readonly ICondition<INodeAndConnector> _conditionRedirectedToNodeBuilder;
+    private readonly ICondition<IConnectorAndConditionEndGroup> _conditionRedirectedToEndGroupBuilder;
 
     public XPathBuilder()
     {
-        // Node builder
-        _nodeBuilder = new NodeBuilder(_xPathProcessor);
-        // Connector builders
-        _connectorRedirectedToChainedConditionBuilder = new ConnectorBuilder<IConnectorAndConditionStartGroup>(_xPathProcessor);
-        _connectorRedirectedToConditionEndGroupBuilder =
-            new ConnectorBuilder<IConnectorAndConditionEndGroup>(_xPathProcessor);
-        // Condition group builder
-        _conditionGroupBuilder = new ConditionGroupBuilder(_xPathProcessor);
-
-        // Composite builders
-        var connectorAndConditionStartGroupBuilder = new ConnectorAndConditionStartGroupBuilder();
-        var connectorAndConditionEndGroupBuilder = new ConnectorAndConditionEndGroupBuilder();
-        var nodeAndConditionBuilder = new NodeAndConditionBuilder();
-        var nodeAndConnectorBuilder = new NodeAndConnectorBuilder();
-
-        // Condition builders
-        _conditionRedirectedToNodeBuilder =
-            new ConditionBuilder<INodeAndConnector>(_xPathProcessor, nodeAndConnectorBuilder);
-        _conditionRedirectedToStartGroupBuilder =
-            new ConditionBuilder<IConnectorAndConditionStartGroup>(_xPathProcessor, connectorAndConditionStartGroupBuilder);
-        _conditionRedirectedToEndGroupBuilder =
-            new ConditionBuilder<IConnectorAndConditionEndGroup>(_xPathProcessor,
-                connectorAndConditionEndGroupBuilder);
-
-        // We have to set the dependencies manually because of circular dependencies
-        // Set dependencies for Node builder
-        _nodeBuilder.Init(nodeAndConditionBuilder);
-
-        // Set dependencies for Connector builders
-        _connectorRedirectedToConditionEndGroupBuilder.Init(_conditionRedirectedToEndGroupBuilder);
-
-        // Set dependencies for Condition group builder
-        _conditionGroupBuilder.Init(_conditionRedirectedToEndGroupBuilder, nodeAndConnectorBuilder);
-
-        // Set dependencies for Condition builders
-        _conditionRedirectedToNodeBuilder.Init(_nodeBuilder);
-        _connectorRedirectedToChainedConditionBuilder.Init(_conditionRedirectedToStartGroupBuilder);
-        _conditionRedirectedToEndGroupBuilder.Init(_nodeBuilder);
-
-        // Set dependencies for Composite builders
-        connectorAndConditionEndGroupBuilder.Init(_connectorRedirectedToConditionEndGroupBuilder,
-            _conditionGroupBuilder);
-        nodeAndConditionBuilder.Init(_nodeBuilder, _conditionRedirectedToNodeBuilder, _conditionGroupBuilder);
-        nodeAndConnectorBuilder.Init(_nodeBuilder, , _conditionGroupBuilder);
+        var builderFactory = new XPathBuilderFactory(_xPathProcessor);
+        _nodeBuilder = builderFactory.CreateNodeBuilder();
+        _connectorRedirectedToChainedConditionBuilder = builderFactory.CreateConnectorAndConditionStartGroupBuilder();
+        _connectorRedirectedToConditionEndGroupBuilder = builderFactory.CreateConnectorAndConditionEndGroupBuilder();
+        _conditionStartGroupBuilder = builderFactory.CreateConditionStartGroupBuilder();
+        _conditionEndGroupBuilder = builderFactory.CreateConditionEndGroupBuilder();
+        _conditionRedirectedToNodeBuilder = builderFactory.CreateConditionRedirectedToNodeBuilder();
+        _conditionRedirectedToEndGroupBuilder = builderFactory.CreateConditionRedirectedToEndGroupBuilder();
     }
 
     public INodeAndCondition Root(string elementName)
@@ -88,7 +57,7 @@ public class XPathBuilder : INode,
         return _xPathProcessor.Build();
     }
 
-    ICondition<IConnectorAndConditionEndGroup> IConnector<IConnectorAndConditionEndGroup>.And()
+    ICondition<IConnectorAndConditionEndGroup> IConnector<ICondition<IConnectorAndConditionEndGroup>>.And()
     {
         return _connectorRedirectedToConditionEndGroupBuilder.And();
     }
@@ -97,13 +66,13 @@ public class XPathBuilder : INode,
     {
         return _connectorRedirectedToChainedConditionBuilder.And();
     }
-    
+
     public ICondition<IConnectorAndConditionStartGroup> Or()
     {
         return _connectorRedirectedToChainedConditionBuilder.Or();
     }
 
-    ICondition<IConnectorAndConditionEndGroup> IConnector<IConnectorAndConditionEndGroup>.Or()
+    ICondition<IConnectorAndConditionEndGroup> IConnector<ICondition<IConnectorAndConditionEndGroup>>.Or()
     {
         return _connectorRedirectedToConditionEndGroupBuilder.Or();
     }
@@ -154,11 +123,11 @@ public class XPathBuilder : INode,
 
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
-        return _conditionGroupBuilder.StartGroupCondition();
+        return _conditionStartGroupBuilder.StartGroupCondition();
     }
 
     public INodeAndConnector EndConditionGroup()
     {
-        return _conditionGroupBuilder.EndConditionGroup();
+        return _conditionEndGroupBuilder.EndConditionGroup();
     }
 }

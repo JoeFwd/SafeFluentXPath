@@ -7,11 +7,11 @@ public class NodeAndConnectorBuilder : INodeAndConnector
 {
     private INode _node;
 
-    private IConnector<INodeAndConnector> _connector;
+    private IConnector<ICondition<INodeAndConnector>> _connector;
 
     private IConditionStartGroup _conditionStartGroup;
 
-    internal void Init(INode node, IConnector<INodeAndConnector> connector,
+    internal void Init(INode node, IConnector<ICondition<INodeAndConnector>> connector,
         IConditionStartGroup conditionStartGroup)
     {
         _node = node;

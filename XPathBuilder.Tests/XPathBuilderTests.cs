@@ -2,12 +2,12 @@
 
 public class XPathBuilderTests
 {
-    private XpathBuilder.Builders.XPathBuilder _xPathBuilder;
+    private XpathBuilder.Builders.XPathBuilder _xPathBuilder = null!;
 
     [SetUp]
     public void Setup()
     {
-        _xPathBuilder = new();
+        _xPathBuilder = new ();
     }
 
     [Test]
@@ -21,7 +21,9 @@ public class XPathBuilderTests
     [Test]
     public void BuildingRoot_WithEmptyElement_CreatesEmptyXPath()
     {
-        var xpath = _xPathBuilder.Root(string.Empty).Build();
+        var xpathBuilder = _xPathBuilder.Root(string.Empty);
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo(string.Empty));
     }
@@ -29,7 +31,9 @@ public class XPathBuilderTests
     [Test]
     public void BuildingRoot_WithNull_CreatesEmptyXPath()
     {
-        var xpath = _xPathBuilder.Root(null).Build();
+        var xpathBuilder = _xPathBuilder.Root(null);
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo(string.Empty));
     }
@@ -37,7 +41,9 @@ public class XPathBuilderTests
     [Test]
     public void BuildingRoot_WithNonEmptyString_CreatesGivenString()
     {
-        var xpath = _xPathBuilder.Root("RootElement").Build();
+        var xpathBuilder = _xPathBuilder.Root("RootElement");
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement"));
     }
@@ -45,10 +51,11 @@ public class XPathBuilderTests
     [Test]
     public void BuildingChildNode_WithEmptyString_DoesNotAppendElement()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .ChildNode(string.Empty)
-            .Build();
+            .ChildNode(string.Empty);
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement"));
     }
@@ -56,10 +63,11 @@ public class XPathBuilderTests
     [Test]
     public void BuildingChildNode_WithNull_DoesNotAppendElement()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .ChildNode(null)
-            .Build();
+            .ChildNode(null);
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement"));
     }
@@ -67,23 +75,25 @@ public class XPathBuilderTests
     [Test]
     public void BuildingChildNode_WithNonEmptyString_AppendsElementWithAForwardSlash()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .ChildNode("ChildElement")
-            .Build();
+            .ChildNode("ChildElement");
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
     }
 
     [Test]
-    public void BuildingChainedChildNodes_WithNonEmptyStrings_AppendsElementsWithForwardSlashes()
+    public void BuildingChildNodes_WithNonEmptyStrings_AppendsElementsWithForwardSlashes()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
             .ChildNode("ChildElement")
             .ChildNode("SecondChildElement")
-            .ChildNodesAtSameLevel()
-            .Build();
+            .ChildNodesAtSameLevel();
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement/ChildElement/SecondChildElement"));
     }
@@ -91,10 +101,11 @@ public class XPathBuilderTests
     [Test]
     public void BuildingDescendant_WithEmptyString_DoesNotAppendElement()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant(string.Empty)
-            .Build();
+            .Descendant(string.Empty);
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement"));
     }
@@ -102,10 +113,11 @@ public class XPathBuilderTests
     [Test]
     public void BuildingDescendant_WithNull_DoesNotAppendElement()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant(null)
-            .Build();
+            .Descendant(null);
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement"));
     }
@@ -113,97 +125,244 @@ public class XPathBuilderTests
     [Test]
     public void BuildingDescendant_WithNonEmptyString_AppendsElementWithDoubleForwardSlashes()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant("DescendantElement")
-            .Build();
+            .Descendant("DescendantElement");
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement//DescendantElement"));
     }
 
     [Test]
-    public void BuildingChainedDescendants_WithNonEmptyStrings_AppendsElementsWithDoubleForwardSlashes()
+    public void BuildingDescendants_WithNonEmptyStrings_AppendsElementsWithDoubleForwardSlashes()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
             .Descendant("DescendantElement")
-            .Descendant("SecondDescendantElement")
-            .Build();
+            .Descendant("SecondDescendantElement");
+
+        var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement//DescendantElement//SecondDescendantElement"));
     }
 
     [Test]
-    public void
-        BuildingChainedDescendants_WithNonEmptyStringsAndChildNodesAtSameLevel_AppendsElementsWithDoubleForwardSlashes()
+    public void BuildingSingleCondition_WithoutConnector_AppendsConditionWithoutOperator()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant("DescendantElement")
-            .Descendant("SecondDescendantElement")
-            .ChildNodesAtSameLevel("ChildElement", "SecondChildElement")
-            .Build();
+            .ChildNode("ChildElement")
+            .WithAttribute("attr1", "value1");
 
-        Assert.That(xpath,
-            Is.EqualTo("RootElement//DescendantElement//SecondDescendantElement/ChildElement|SecondChildElement"));
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[@attr1='value1']"));
     }
 
     [Test]
-    public void
-        BuildingChainedDescendants_WithNonEmptyStringsAndChildNodesAtSameLevelAndAttributes_AppendsElementsWithDoubleForwardSlashes()
+    public void BuildingMultipleConditions_WithAndConnector_AppendsConditionsWithAndOperator()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant("DescendantElement")
-            .Descendant("SecondDescendantElement")
-            .WithAttribute("Attribute", "Value")
-            .Build();
+            .ChildNode("ChildElement")
+            .WithAttribute("attr1", "value1")
+            .And()
+            .AtPosition(2);
 
-        Assert.That(xpath,
-            Is.EqualTo(
-                "RootElement//DescendantElement//SecondDescendantElement/ChildElement|SecondChildElement[@Attribute='Value']"));
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[@attr1='value1' and position()=2]"));
     }
 
     [Test]
-
-    public void
-        BuildingChainedDescendants_WithNonEmptyStringsAndChildNodesAtSameLevelAndAttributesAndPosition_AppendsElementsWithDoubleForwardSlashes()
+    public void BuildingMultipleConditions_WithOrConnector_AppendsConditionsWithOrOperator()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant("DescendantElement")
-            .Descendant("SecondDescendantElement")
-            .ChildNodesAtSameLevel("ChildElement", "SecondChildElement")
-            .And()
-            .WithAttribute("Attribute", "Value")
-            .And()
-            .
-            .AtPosition(1)
-            .Build();
+            .ChildNode("ChildElement")
+            .WithAttribute("attr1", "value1")
+            .Or()
+            .AtPosition(2);
 
-        Assert.That(xpath,
-            Is.EqualTo(
-                "RootElement//DescendantElement//SecondDescendantElement/ChildElement|SecondChildElement[@Attribute='Value'][1]"));
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[@attr1='value1' or position()=2]"));
     }
 
     [Test]
-    public void
-        BuildingChainedDescendants_WithNonEmptyStringsAndChildNodesAtSameLevelAndAttributesAndPositionAndNodeName_AppendsElementsWithDoubleForwardSlashes()
+    public void BuildingConditionGroup_WithAndConnector_AppendsGroupedConditionsWithAndOperator()
     {
-        var xpath = _xPathBuilder
+        var xpathBuilder = _xPathBuilder
             .Root("RootElement")
-            .Descendant("DescendantElement")
-            .Descendant("SecondDescendantElement")
-            .ChildNodesAtSameLevel("ChildElement", "SecondChildElement")
+            .ChildNode("ChildElement")
+            .StartGroupCondition()
+            .WithAttribute("attr1", "value1")
             .And()
-            .WithAttribute("Attribute", "Value")
-            .AtPosition(1)
-            .And()
-            .NodeHasName("NodeName")
-            .Build();
+            .AtPosition(2)
+            .EndConditionGroup();
 
-        Assert.That(xpath,
-            Is.EqualTo(
-                "RootElement//DescendantElement//SecondDescendantElement/ChildElement|SecondChildElement[@Attribute='Value'][1][NodeName]"));
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[(@attr1='value1' and position()=2)]"));
     }
+
+    [Test]
+    public void BuildingConditionGroup_WithOrConnector_AppendsGroupedConditionsWithOrOperator()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .StartGroupCondition()
+            .WithAttribute("attr1", "value1")
+            .Or()
+            .AtPosition(2)
+            .EndConditionGroup();
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[(@attr1='value1' or position()=2)]"));
+    }
+
+    [Test]
+    public void BuildingChildNodesAtSameLevel_AppendsChildNodesWithSlash()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNodesAtSameLevel("Node1", "Node2", "Node3");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/*[name()='Node1' or name()='Node2' or name()='Node3']"));
+    }
+
+    
+    
+    
+    [Test]
+    public void BuildingChildNodesAtSameLevel_WithEmptyStrings_DoesNotIncludeEmptyElements()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNodesAtSameLevel("Node1", string.Empty, "Node3");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/*[name()='Node1' or name()='Node3']"));
+    }
+
+    [Test]
+    public void BuildingChildNodesAtSameLevel_WithNullValues_DoesNotIncludeNullElements()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNodesAtSameLevel("Node1", null, "Node3");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/*[name()='Node1' or name()='Node3']"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithEmptyAttributeName_DoesNotIncludeCondition()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .WithAttribute(string.Empty, "value1");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithNullAttributeName_DoesNotIncludeCondition()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .WithAttribute(null, "value1");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithNegativePosition_DoesNotIncludeCondition()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .AtPosition(-2);
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithZeroPosition_DoesNotIncludeCondition()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .AtPosition(0);
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithEmptyNodeName_DoesNotIncludeCondition()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .NodeHasName(string.Empty);
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithNullNodeName_DoesNotIncludeCondition()
+    {
+        var xpathBuilder = _xPathBuilder
+            .Root("RootElement")
+            .ChildNode("ChildElement")
+            .NodeHasName(null);
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+    
+    // [Test]
+    // public void BuildingComplexXPath_WithMixedConditionsAndGroups_ReturnsCorrectXPath()
+    // {
+    //     var xpathBuilder = _xPathBuilder
+    //         .Root("RootElement")
+    //         .ChildNode("ChildElement")
+    //         .StartGroupCondition()
+    //         .WithAttribute("attr1", "value1")
+    //         .Or()
+    //         .AtPosition(2)
+    //         .EndConditionGroup()
+    //         .And()
+    //         .StartGroupCondition()
+    //         .NodeHasName("SpecialNode")
+    //         .And()
+    //         .ChildNodesAtSameLevel("Node1", "Node2")
+    //         .EndConditionGroup()
+    //         .Or()
+    //         .Descendant("DescendantElement");
+    //
+    //     var xpath = xpathBuilder.Build();
+    //
+    //     Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[((@attr1='value1' or position()=2) and (name()='SpecialNode' and /Node1|/Node2))]|//DescendantElement"));
+    // }
 }

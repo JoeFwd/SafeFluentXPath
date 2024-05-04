@@ -1,21 +1,19 @@
 ﻿namespace XpathBuilder.ReturnLogic;
 
-public interface IConnector<R>
+public interface IConnector<out TReturn>
 {
 
     /**
      * <summary>
      * This method adds the and operator to the XPath.
-     * Another condition is required after this method.
      * </summary>
      */
-    ICondition<R> And();
+    TReturn And();
 
     /**
      * <summary>
      * This method adds the or operator to the XPath.
-     * Another condition is required after this method.
      * </summary>
      */
-    ICondition<R> Or();
+    TReturn Or();
 }

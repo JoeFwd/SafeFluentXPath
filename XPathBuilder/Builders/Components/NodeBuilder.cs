@@ -1,9 +1,9 @@
-﻿using XpathBuilder.Builders.Composites;
+﻿using XPathBuilder.Builders.Core;
 using XpathBuilder.Components;
 using XpathBuilder.ReturnLogic;
 using XpathBuilder.ReturnLogic.Composites;
 
-namespace XpathBuilder.Builders;
+namespace XPathBuilder.Builders.Components;
 
 /**
 * <summary>
@@ -16,7 +16,7 @@ public class NodeBuilder : INode
 
     private INodeAndCondition _nodeAndCondition;
 
-    internal void Init(NodeAndConditionBuilder nodeAndConditionBuilder)
+    internal void Init(INodeAndCondition nodeAndConditionBuilder)
     {
         _nodeAndCondition = nodeAndConditionBuilder;
     }
