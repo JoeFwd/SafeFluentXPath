@@ -11,9 +11,11 @@ public class ConditionGroupBuilder : IConditionStartGroup, IConditionEndGroup
 
     private ICondition<IConnectorAndConditionEndGroup> _conditionBuilder;
 
-    private INodeAndConnector _nodeAndConnector;
+    private INodeAndConnectorAllowingGroupedCondition _nodeAndConnector;
 
-    internal void Init(ICondition<IConnectorAndConditionEndGroup> conditionBuilder, INodeAndConnector nodeAndConnector)
+    internal void Init(
+        ICondition<IConnectorAndConditionEndGroup> conditionBuilder,
+        INodeAndConnectorAllowingGroupedCondition nodeAndConnector)
     {
         _conditionBuilder = conditionBuilder;
         _nodeAndConnector = nodeAndConnector;
@@ -30,7 +32,7 @@ public class ConditionGroupBuilder : IConditionStartGroup, IConditionEndGroup
         return _conditionBuilder;
     }
 
-    public INodeAndConnector EndConditionGroup()
+    public INodeAndConnectorAllowingGroupedCondition EndConditionGroup()
     {
         _xPathProcessor.AddXPathComponent(new GroupedConditionEnd());
         return _nodeAndConnector;

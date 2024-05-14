@@ -126,7 +126,7 @@ public class XPathBuilder : INode,
         return _conditionStartGroupBuilder.StartGroupCondition();
     }
 
-    public INodeAndConnector EndConditionGroup()
+    public INodeAndConnectorAllowingGroupedCondition EndConditionGroup()
     {
         return _conditionEndGroupBuilder.EndConditionGroup();
     }

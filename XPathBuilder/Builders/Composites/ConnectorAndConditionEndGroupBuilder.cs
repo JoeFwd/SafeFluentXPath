@@ -25,7 +25,7 @@ public class ConnectorAndConditionEndGroupBuilder : IConnectorAndConditionEndGro
         return _connector.Or();
     }
 
-    public INodeAndConnector EndConditionGroup()
+    public INodeAndConnectorAllowingGroupedCondition EndConditionGroup()
     {
         return _conditionEndGroup.EndConditionGroup();
     }

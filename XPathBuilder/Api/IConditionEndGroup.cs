@@ -10,5 +10,5 @@ public interface IConditionEndGroup
      * </summary>
      * <returns>The builder allowing to add xpath nodes and xpath connectors</returns>
      */
-    INodeAndConnector EndConditionGroup();
+    INodeAndConnectorAllowingGroupedCondition EndConditionGroup();
 }
