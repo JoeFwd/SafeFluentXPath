@@ -1,10 +1,11 @@
-using XpathBuilder.Api.Composites;
+﻿using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Api;
 
 public interface IXPathBuilder : INode,
+    IConnector<ICondition<IConnectorAndConditionEndGroup>>, IConditionStartGroup, IConditionEndGroup,
     ICondition<INodeAndConnector>, ICondition<IConnectorAndConditionEndGroup>,
-    IConnector<ICondition<IConnectorAndConditionStartGroup>>, IConnectorAndConditionEndGroup, IConditionStartGroupAndConditionAllowingNode
+    IConnector<ICondition<IConnectorAndConditionStartGroup>>
 {
     
 }

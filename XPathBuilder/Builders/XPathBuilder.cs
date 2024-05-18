@@ -1,14 +1,11 @@
-using XPathBuilder.Builders.Core;
+﻿using XPathBuilder.Builders.Core;
 using XPathBuilder.Builders.Factories;
 using XpathBuilder.Api;
 using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders;
 
-public class XPathBuilder : INode,
-    IConnector<ICondition<IConnectorAndConditionEndGroup>>, IConditionStartGroup, IConditionEndGroup,
-    ICondition<INodeAndConnector>, ICondition<IConnectorAndConditionEndGroup>,
-    IConnector<ICondition<IConnectorAndConditionStartGroup>>
+public class XPathBuilder : IXPathBuilder
 {
     private readonly XPathProcessor _xPathProcessor = new ();
 
