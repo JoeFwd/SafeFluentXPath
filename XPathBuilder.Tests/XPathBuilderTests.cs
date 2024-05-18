@@ -1,6 +1,4 @@
-﻿using XpathBuilder.Builders;
-
-namespace XPathBuilder.Tests;
+﻿namespace XPathBuilder.Tests;
 
 public class XPathBuilderTests
 {
