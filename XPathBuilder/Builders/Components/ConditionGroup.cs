@@ -9,13 +9,13 @@ public class ConditionGroup : IConditionStartGroup, IConditionEndGroup
 {
     private readonly XPathProcessor _xPathProcessor;
 
-    private ICondition<IConnectorWithConditionEndGroup> _conditionBuilder;
+    private ICondition<IConnectorAndConditionEndGroup> _conditionBuilder;
 
-    private INodeAndConnectorWithGroupedCondition _nodeAndConnector;
+    private INodeAndConnectorAndGroupedCondition _nodeAndConnector;
 
     internal void Init(
-        ICondition<IConnectorWithConditionEndGroup> conditionBuilder,
-        INodeAndConnectorWithGroupedCondition nodeAndConnector)
+        ICondition<IConnectorAndConditionEndGroup> conditionBuilder,
+        INodeAndConnectorAndGroupedCondition nodeAndConnector)
     {
         _conditionBuilder = conditionBuilder;
         _nodeAndConnector = nodeAndConnector;
@@ -26,13 +26,13 @@ public class ConditionGroup : IConditionStartGroup, IConditionEndGroup
         _xPathProcessor = xPathProcessor;
     }
 
-    public ICondition<IConnectorWithConditionEndGroup> StartGroupCondition()
+    public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
         _xPathProcessor.AddXPathComponent(new GroupedConditionStart());
         return _conditionBuilder;
     }
 
-    public INodeAndConnectorWithGroupedCondition EndConditionGroup()
+    public INodeAndConnectorAndGroupedCondition EndConditionGroup()
     {
         _xPathProcessor.AddXPathComponent(new GroupedConditionEnd());
         return _nodeAndConnector;

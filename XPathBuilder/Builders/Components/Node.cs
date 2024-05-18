@@ -14,11 +14,11 @@ public class Node : INode
 {
     private readonly XPathProcessor _xPathProcessor;
 
-    private INodeWithCondition _nodeWithCondition;
+    private INodeAndCondition _nodeAndCondition;
 
-    internal void Init(INodeWithCondition nodeWithConditionBuilder)
+    internal void Init(INodeAndCondition nodeAndConditionBuilder)
     {
-        _nodeWithCondition = nodeWithConditionBuilder;
+        _nodeAndCondition = nodeAndConditionBuilder;
     }
 
     public Node(XPathProcessor xPathProcessor)
@@ -26,30 +26,30 @@ public class Node : INode
         _xPathProcessor = xPathProcessor;
     }
 
-    public INodeWithCondition Root(string elementName)
+    public INodeAndCondition Root(string elementName)
     {
         if (_xPathProcessor.GetXPathComponentCount() == 0 && !string.IsNullOrWhiteSpace(elementName))
         {
             _xPathProcessor.AddXPathComponent(new XpathBuilder.Components.Node($"{elementName}"));
         }
 
-        return _nodeWithCondition;
+        return _nodeAndCondition;
     }
 
-    public INodeWithCondition ChildNode(string elementName)
+    public INodeAndCondition ChildNode(string elementName)
     {
-        if (string.IsNullOrWhiteSpace(elementName)) return _nodeWithCondition;
+        if (string.IsNullOrWhiteSpace(elementName)) return _nodeAndCondition;
 
         _xPathProcessor.AddXPathComponent(new XpathBuilder.Components.Node($"/{elementName}"));
-        return _nodeWithCondition;
+        return _nodeAndCondition;
     }
 
-    public INodeWithCondition Descendant(string descendant)
+    public INodeAndCondition Descendant(string descendant)
     {
-        if (string.IsNullOrWhiteSpace(descendant)) return _nodeWithCondition;
+        if (string.IsNullOrWhiteSpace(descendant)) return _nodeAndCondition;
 
         _xPathProcessor.AddXPathComponent(new XpathBuilder.Components.Node($"//{descendant}"));
-        return _nodeWithCondition;
+        return _nodeAndCondition;
     }
 
     public string Build()

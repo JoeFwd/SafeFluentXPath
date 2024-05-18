@@ -11,16 +11,16 @@ public class XPathBuilder : IXPathBuilder
 
     private readonly INode _nodeBuilder;
 
-    private readonly IConnector<ICondition<IConnectorWithConditionStartGroup>>
+    private readonly IConnector<ICondition<IConnectorAndConditionStartGroup>>
         _connectorRedirectedToChainedConditionBuilder;
 
-    private readonly IConnector<ICondition<IConnectorWithConditionEndGroup>>
+    private readonly IConnector<ICondition<IConnectorAndConditionEndGroup>>
         _connectorRedirectedToConditionEndGroupBuilder;
 
     private readonly IConditionStartGroup _conditionStartGroupBuilder;
     private readonly IConditionEndGroup _conditionEndGroupBuilder;
-    private readonly ICondition<INodeWithConnector> _conditionRedirectedToNodeBuilder;
-    private readonly ICondition<IConnectorWithConditionEndGroup> _conditionRedirectedToEndGroupBuilder;
+    private readonly ICondition<INodeAndConnector> _conditionRedirectedToNodeBuilder;
+    private readonly ICondition<IConnectorAndConditionEndGroup> _conditionRedirectedToEndGroupBuilder;
 
     public XPathBuilder()
     {
@@ -34,17 +34,17 @@ public class XPathBuilder : IXPathBuilder
         _conditionRedirectedToEndGroupBuilder = builderFactory.CreateConditionRedirectedToEndGroupBuilder();
     }
 
-    public INodeWithCondition Root(string elementName)
+    public INodeAndCondition Root(string elementName)
     {
         return _nodeBuilder.Root(elementName);
     }
 
-    public INodeWithCondition ChildNode(string elementName)
+    public INodeAndCondition ChildNode(string elementName)
     {
         return _nodeBuilder.ChildNode(elementName);
     }
 
-    public INodeWithCondition Descendant(string descendant)
+    public INodeAndCondition Descendant(string descendant)
     {
         return _nodeBuilder.Descendant(descendant);
     }
@@ -54,76 +54,76 @@ public class XPathBuilder : IXPathBuilder
         return _xPathProcessor.Build();
     }
 
-    ICondition<IConnectorWithConditionEndGroup> IConnector<ICondition<IConnectorWithConditionEndGroup>>.And()
+    ICondition<IConnectorAndConditionEndGroup> IConnector<ICondition<IConnectorAndConditionEndGroup>>.And()
     {
         return _connectorRedirectedToConditionEndGroupBuilder.And();
     }
 
-    public ICondition<IConnectorWithConditionStartGroup> And()
+    public ICondition<IConnectorAndConditionStartGroup> And()
     {
         return _connectorRedirectedToChainedConditionBuilder.And();
     }
 
-    public ICondition<IConnectorWithConditionStartGroup> Or()
+    public ICondition<IConnectorAndConditionStartGroup> Or()
     {
         return _connectorRedirectedToChainedConditionBuilder.Or();
     }
 
-    ICondition<IConnectorWithConditionEndGroup> IConnector<ICondition<IConnectorWithConditionEndGroup>>.Or()
+    ICondition<IConnectorAndConditionEndGroup> IConnector<ICondition<IConnectorAndConditionEndGroup>>.Or()
     {
         return _connectorRedirectedToConditionEndGroupBuilder.Or();
     }
 
-    public INodeWithConnector WithAttribute(string attributeName, string attributeValue)
+    public INodeAndConnector WithAttribute(string attributeName, string attributeValue)
     {
         return _conditionRedirectedToNodeBuilder.WithAttribute(attributeName, attributeValue);
     }
 
-    IConnectorWithConditionEndGroup ICondition<IConnectorWithConditionEndGroup>.AtPosition(
+    IConnectorAndConditionEndGroup ICondition<IConnectorAndConditionEndGroup>.AtPosition(
         int position)
     {
         return _conditionRedirectedToEndGroupBuilder.AtPosition(position);
     }
 
-    IConnectorWithConditionEndGroup ICondition<IConnectorWithConditionEndGroup>.NodeHasName(
+    IConnectorAndConditionEndGroup ICondition<IConnectorAndConditionEndGroup>.NodeHasName(
         string nodeName)
     {
         return _conditionRedirectedToEndGroupBuilder.NodeHasName(nodeName);
     }
 
-    IConnectorWithConditionEndGroup ICondition<IConnectorWithConditionEndGroup>.ChildNodesAtSameLevel(
+    IConnectorAndConditionEndGroup ICondition<IConnectorAndConditionEndGroup>.ChildNodesAtSameLevel(
         params string[] elementNames)
     {
         return _conditionRedirectedToEndGroupBuilder.ChildNodesAtSameLevel(elementNames);
     }
 
-    IConnectorWithConditionEndGroup ICondition<IConnectorWithConditionEndGroup>.WithAttribute(
+    IConnectorAndConditionEndGroup ICondition<IConnectorAndConditionEndGroup>.WithAttribute(
         string attributeName, string attributeValue)
     {
         return _conditionRedirectedToEndGroupBuilder.WithAttribute(attributeName, attributeValue);
     }
 
-    public INodeWithConnector AtPosition(int position)
+    public INodeAndConnector AtPosition(int position)
     {
         return _conditionRedirectedToNodeBuilder.AtPosition(position);
     }
 
-    public INodeWithConnector NodeHasName(string nodeName)
+    public INodeAndConnector NodeHasName(string nodeName)
     {
         return _conditionRedirectedToNodeBuilder.NodeHasName(nodeName);
     }
 
-    INodeWithConnector ICondition<INodeWithConnector>.ChildNodesAtSameLevel(params string[] elementNames)
+    INodeAndConnector ICondition<INodeAndConnector>.ChildNodesAtSameLevel(params string[] elementNames)
     {
         return _conditionRedirectedToNodeBuilder.ChildNodesAtSameLevel(elementNames);
     }
 
-    public ICondition<IConnectorWithConditionEndGroup> StartGroupCondition()
+    public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
         return _conditionStartGroupBuilder.StartGroupCondition();
     }
 
-    public INodeAndConnectorWithGroupedCondition EndConditionGroup()
+    public INodeAndConnectorAndGroupedCondition EndConditionGroup()
     {
         return _conditionEndGroupBuilder.EndConditionGroup();
     }

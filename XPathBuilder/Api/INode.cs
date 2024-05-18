@@ -11,7 +11,7 @@ public interface INode
      * <param name="elementName">The root element name</param>
      * <returns>The current builder instance.</returns>
      */
-    INodeWithCondition Root(string elementName);
+    INodeAndCondition Root(string elementName);
 
     /**
      * <summary>
@@ -20,7 +20,7 @@ public interface INode
      * <param name="elementName">The child node name</param>
      * <returns>The current builder instance.</returns>
      */
-    INodeWithCondition ChildNode(string elementName);
+    INodeAndCondition ChildNode(string elementName);
 
     /**
      * <summary>
@@ -32,7 +32,7 @@ public interface INode
      * If the descendant name is empty, the method returns the current instance.
      * </remarks>
      */
-    INodeWithCondition Descendant(string descendant);
+    INodeAndCondition Descendant(string descendant);
 
     /**
      * <summary>

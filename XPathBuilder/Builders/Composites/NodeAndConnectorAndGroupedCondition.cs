@@ -3,28 +3,28 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class NodeAndConnectorWithGroupedCondition : INodeAndConnectorWithGroupedCondition
+public class NodeAndConnectorAndGroupedCondition : INodeAndConnectorAndGroupedCondition
 {
     private INode _node;
-    private IConnector<IConditionStartGroupWithNode> _connectorAllowingGroupedCondition;
+    private IConnector<IConditionStartGroupAndNode> _connectorAllowingGroupedCondition;
     
-    public void Init(INode node, IConnector<IConditionStartGroupWithNode> connector)
+    public void Init(INode node, IConnector<IConditionStartGroupAndNode> connector)
     {
         _node = node;
         _connectorAllowingGroupedCondition = connector;
     }
     
-    public INodeWithCondition Root(string elementName)
+    public INodeAndCondition Root(string elementName)
     {
         return _node.Root(elementName);
     }
 
-    public INodeWithCondition ChildNode(string elementName)
+    public INodeAndCondition ChildNode(string elementName)
     {
         return _node.ChildNode(elementName);
     }
 
-    public INodeWithCondition Descendant(string descendant)
+    public INodeAndCondition Descendant(string descendant)
     {
         return _node.Descendant(descendant);
     }
@@ -34,12 +34,12 @@ public class NodeAndConnectorWithGroupedCondition : INodeAndConnectorWithGrouped
         return _node.Build();
     }
 
-    public IConditionStartGroupWithNode And()
+    public IConditionStartGroupAndNode And()
     {
         return _connectorAllowingGroupedCondition.And();
     }
 
-    public IConditionStartGroupWithNode Or()
+    public IConditionStartGroupAndNode Or()
     {
         return _connectorAllowingGroupedCondition.Or();
     }
