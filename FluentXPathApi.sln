@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentXPath", "FluentXPath\FluentXPath.csproj", "{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentXPath.Tests", "FluentXPath.Tests\FluentXPath.Tests.csproj", "{CC431BF4-E949-40FE-A690-B7548B51840C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentXPath.Implementation", "FluentXPath.Implementation\FluentXPath.Implementation.csproj", "{BF2BCBF5-CBFF-4D5C-8E79-60F1098F1CB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC431BF4-E949-40FE-A690-B7548B51840C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC431BF4-E949-40FE-A690-B7548B51840C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC431BF4-E949-40FE-A690-B7548B51840C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC431BF4-E949-40FE-A690-B7548B51840C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF2BCBF5-CBFF-4D5C-8E79-60F1098F1CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2BCBF5-CBFF-4D5C-8E79-60F1098F1CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2BCBF5-CBFF-4D5C-8E79-60F1098F1CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2BCBF5-CBFF-4D5C-8E79-60F1098F1CB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
