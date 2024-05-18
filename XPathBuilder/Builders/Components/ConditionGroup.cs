@@ -5,7 +5,7 @@ using XpathBuilder.Api.Composites;
 
 namespace XPathBuilder.Builders.Components;
 
-public class ConditionGroupBuilder : IConditionStartGroup, IConditionEndGroup
+public class ConditionGroup : IConditionStartGroup, IConditionEndGroup
 {
     private readonly XPathProcessor _xPathProcessor;
 
@@ -21,7 +21,7 @@ public class ConditionGroupBuilder : IConditionStartGroup, IConditionEndGroup
         _nodeAndConnector = nodeAndConnector;
     }
 
-    public ConditionGroupBuilder(XPathProcessor xPathProcessor)
+    public ConditionGroup(XPathProcessor xPathProcessor)
     {
         _xPathProcessor = xPathProcessor;
     }

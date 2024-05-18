@@ -3,7 +3,7 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class ConditionStartGroupWithNodeBuilder : IConditionStartGroupWithNode
+public class ConditionStartGroupWithNode : IConditionStartGroupWithNode
 {
     private ICondition<INodeAndConnectorWithGroupedCondition> _conditionAllowingNodeAndConnector;
     private IConditionStartGroup _conditionStartGroup;

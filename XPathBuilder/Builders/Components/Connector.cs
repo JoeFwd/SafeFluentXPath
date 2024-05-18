@@ -4,7 +4,7 @@ using XpathBuilder.Api;
 
 namespace XPathBuilder.Builders.Components;
 
-public class ConnectorBuilder<TReturn> : IConnector<TReturn>
+public class Connector<TReturn> : IConnector<TReturn>
 {
     private readonly XPathProcessor _xPathProcessor;
     private TReturn _conditionBuilder;
@@ -14,7 +14,7 @@ public class ConnectorBuilder<TReturn> : IConnector<TReturn>
         _conditionBuilder = conditionBuilder;
     }
 
-    public ConnectorBuilder(XPathProcessor xPathProcessor)
+    public Connector(XPathProcessor xPathProcessor)
     {
         _xPathProcessor = xPathProcessor;
     }

@@ -3,7 +3,7 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class NodeAndConnectorWithGroupedConditionBuilder : INodeAndConnectorWithGroupedCondition
+public class NodeAndConnectorWithGroupedCondition : INodeAndConnectorWithGroupedCondition
 {
     private INode _node;
     private IConnector<IConditionStartGroupWithNode> _connectorAllowingGroupedCondition;

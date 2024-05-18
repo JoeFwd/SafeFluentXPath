@@ -10,7 +10,7 @@ namespace XPathBuilder.Builders.Components;
 * This class provides a way to build an XPath.
 * </summary>
 */
-public class NodeBuilder : INode
+public class Node : INode
 {
     private readonly XPathProcessor _xPathProcessor;
 
@@ -21,7 +21,7 @@ public class NodeBuilder : INode
         _nodeWithCondition = nodeWithConditionBuilder;
     }
 
-    public NodeBuilder(XPathProcessor xPathProcessor)
+    public Node(XPathProcessor xPathProcessor)
     {
         _xPathProcessor = xPathProcessor;
     }
@@ -30,7 +30,7 @@ public class NodeBuilder : INode
     {
         if (_xPathProcessor.GetXPathComponentCount() == 0 && !string.IsNullOrWhiteSpace(elementName))
         {
-            _xPathProcessor.AddXPathComponent(new Node($"{elementName}"));
+            _xPathProcessor.AddXPathComponent(new XpathBuilder.Components.Node($"{elementName}"));
         }
 
         return _nodeWithCondition;
@@ -40,7 +40,7 @@ public class NodeBuilder : INode
     {
         if (string.IsNullOrWhiteSpace(elementName)) return _nodeWithCondition;
 
-        _xPathProcessor.AddXPathComponent(new Node($"/{elementName}"));
+        _xPathProcessor.AddXPathComponent(new XpathBuilder.Components.Node($"/{elementName}"));
         return _nodeWithCondition;
     }
 
@@ -48,7 +48,7 @@ public class NodeBuilder : INode
     {
         if (string.IsNullOrWhiteSpace(descendant)) return _nodeWithCondition;
 
-        _xPathProcessor.AddXPathComponent(new Node($"//{descendant}"));
+        _xPathProcessor.AddXPathComponent(new XpathBuilder.Components.Node($"//{descendant}"));
         return _nodeWithCondition;
     }
 

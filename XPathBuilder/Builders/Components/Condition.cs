@@ -4,7 +4,7 @@ using XpathBuilder.Api;
 
 namespace XPathBuilder.Builders.Components;
 
-public class ConditionBuilder<TReturn> : ICondition<TReturn>
+public class Condition<TReturn> : ICondition<TReturn>
 {
     private readonly XPathProcessor _xPathProcessor;
 
@@ -18,7 +18,7 @@ public class ConditionBuilder<TReturn> : ICondition<TReturn>
         _returnApi = returnApi;
     }
 
-    public ConditionBuilder(XPathProcessor xPathProcessor)
+    public Condition(XPathProcessor xPathProcessor)
     {
         _xPathProcessor = xPathProcessor;
     }

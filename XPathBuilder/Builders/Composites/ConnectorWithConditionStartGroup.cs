@@ -3,7 +3,7 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class ConnectorWithConditionStartGroupBuilder : IConnectorWithConditionStartGroup
+public class ConnectorWithConditionStartGroup : IConnectorWithConditionStartGroup
 {
     private IConnector<ICondition<IConnectorWithConditionStartGroup>> _connector;
 

@@ -3,7 +3,7 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class NodeWithConnectorBuilder : INodeWithConnector
+public class NodeWithConnector : INodeWithConnector
 {
     private INode _node;
 

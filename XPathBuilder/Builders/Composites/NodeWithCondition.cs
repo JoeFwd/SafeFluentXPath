@@ -3,7 +3,7 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class NodeWithConditionBuilder : INodeWithCondition
+public class NodeWithCondition : INodeWithCondition
 {
     private INode _node;
 
