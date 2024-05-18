@@ -1,4 +1,4 @@
-﻿namespace XpathBuilder.ReturnLogic.Composites;
+﻿namespace XpathBuilder.Api.Composites;
 
 public interface INodeAndConnector : INode,
     IConnector<ICondition<INodeAndConnector>>

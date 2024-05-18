@@ -1,6 +1,6 @@
-﻿using XpathBuilder.ReturnLogic.Composites;
+﻿using XpathBuilder.Api.Composites;
 
-namespace XpathBuilder.ReturnLogic;
+namespace XpathBuilder.Api;
 
 public interface INode
 {

@@ -1,4 +1,4 @@
-﻿namespace XpathBuilder.ReturnLogic;
+﻿namespace XpathBuilder.Api;
 
 public interface IConnector<out TReturn>
 {

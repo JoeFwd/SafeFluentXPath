@@ -1,6 +1,6 @@
 ﻿using XPathBuilder.Builders.Core;
 using XpathBuilder.Components;
-using XpathBuilder.ReturnLogic;
+using XpathBuilder.Api;
 
 namespace XPathBuilder.Builders.Components;
 

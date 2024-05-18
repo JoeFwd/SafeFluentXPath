@@ -1,5 +1,5 @@
-﻿using XpathBuilder.ReturnLogic;
-using XpathBuilder.ReturnLogic.Composites;
+﻿using XpathBuilder.Api;
+using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 

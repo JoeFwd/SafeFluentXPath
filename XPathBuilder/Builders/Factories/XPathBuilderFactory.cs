@@ -1,8 +1,8 @@
 ﻿using XPathBuilder.Builders.Components;
 using XpathBuilder.Builders.Composites;
 using XPathBuilder.Builders.Core;
-using XpathBuilder.ReturnLogic;
-using XpathBuilder.ReturnLogic.Composites;
+using XpathBuilder.Api;
+using XpathBuilder.Api.Composites;
 
 namespace XPathBuilder.Builders.Factories;
 
