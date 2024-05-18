@@ -3,15 +3,15 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class NodeAndConnectorBuilder : INodeAndConnector
+public class NodeWithConnectorBuilder : INodeWithConnector
 {
     private INode _node;
 
-    private IConnector<ICondition<INodeAndConnector>> _connector;
+    private IConnector<ICondition<INodeWithConnector>> _connector;
 
     private IConditionStartGroup _conditionStartGroup;
 
-    internal void Init(INode node, IConnector<ICondition<INodeAndConnector>> connector,
+    internal void Init(INode node, IConnector<ICondition<INodeWithConnector>> connector,
         IConditionStartGroup conditionStartGroup)
     {
         _node = node;
@@ -19,17 +19,17 @@ public class NodeAndConnectorBuilder : INodeAndConnector
         _conditionStartGroup = conditionStartGroup;
     }
     
-    public INodeAndCondition Root(string elementName)
+    public INodeWithCondition Root(string elementName)
     {
         return _node.Root(elementName);
     }
 
-    public INodeAndCondition ChildNode(string elementName)
+    public INodeWithCondition ChildNode(string elementName)
     {
         return _node.ChildNode(elementName);
     }
 
-    public INodeAndCondition Descendant(string descendant)
+    public INodeWithCondition Descendant(string descendant)
     {
         return _node.Descendant(descendant);
     }
@@ -39,17 +39,17 @@ public class NodeAndConnectorBuilder : INodeAndConnector
         return _node.Build();
     }
 
-    public ICondition<INodeAndConnector> And()
+    public ICondition<INodeWithConnector> And()
     {
         return _connector.And();
     }
 
-    public ICondition<INodeAndConnector> Or()
+    public ICondition<INodeWithConnector> Or()
     {
         return _connector.Or();
     }
 
-    public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
+    public ICondition<IConnectorWithConditionEndGroup> StartGroupCondition()
     {
         return _conditionStartGroup.StartGroupCondition();
     }

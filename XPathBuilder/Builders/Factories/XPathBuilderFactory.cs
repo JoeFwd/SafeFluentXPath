@@ -11,26 +11,26 @@ public class XPathBuilderFactory
     private readonly NodeBuilder _nodeBuilder;
     private readonly ConditionGroupBuilder _conditionGroupBuilder;
 
-    private readonly NodeAndConditionBuilder _nodeAndConditionBuilder;
-    private readonly NodeAndConnectorBuilder _nodeAndConnectorBuilder;
-    private readonly ConnectorAndConditionStartGroupBuilder _connectorAndConditionStartGroupBuilder;
-    private readonly ConnectorAndConditionEndGroupBuilder _connectorAndConditionEndGroupBuilder;
-    private readonly NodeAndConnectorAllowingGroupedConditionBuilder _nodeAndConnectorAllowingGroupedConditionBuilder;
-    private readonly ConditionStartGroupAndConditionAllowingNodeBuilder _conditionStartGroupAndConditionAllowingNodeBuilder;
-    private readonly ConditionStartGroupAndConditionBuilder _conditionStartGroupAndConditionBuilder;
+    private readonly NodeWithConditionBuilder _nodeWithConditionBuilder;
+    private readonly NodeWithConnectorBuilder _nodeWithConnectorBuilder;
+    private readonly ConnectorWithConditionStartGroupBuilder _connectorWithConditionStartGroupBuilder;
+    private readonly ConnectorWithConditionEndGroupBuilder _connectorWithConditionEndGroupBuilder;
+    private readonly NodeAndConnectorWithGroupedConditionBuilder _nodeAndConnectorWithGroupedConditionBuilder;
+    private readonly ConditionStartGroupWithNodeBuilder _conditionStartGroupWithNodeBuilder;
+    private readonly ConditionStartGroupWithConditionBuilder _conditionStartGroupWithConditionBuilder;
 
-    private readonly ConditionBuilder<IConnectorAndConditionStartGroup> _conditionRedirectedToStartGroupBuilder;
-    private readonly ConditionBuilder<IConnectorAndConditionEndGroup> _conditionRedirectedToEndGroupBuilder;
-    private readonly ConditionBuilder<INodeAndConnector> _conditionRedirectedToNodeBuilder;
-    private readonly ConditionBuilder<IConnector<IConditionStartGroupAndConditionAllowingNode>> _conditionRedirectedToConnectorAllowingGroupedConditionAndNode;
-    private readonly ConditionBuilder<IConnector<IConditionStartGroupAndCondition>> _conditionRedirectedToConnectorAllowingGroupedCondition;
-    private readonly ConditionBuilder<INodeAndConnectorAllowingGroupedCondition> _conditionRedirectedToNodeAndConnectorAllowingGroupedCondition;
+    private readonly ConditionBuilder<IConnectorWithConditionStartGroup> _conditionRedirectedToStartGroupBuilder;
+    private readonly ConditionBuilder<IConnectorWithConditionEndGroup> _conditionRedirectedToEndGroupBuilder;
+    private readonly ConditionBuilder<INodeWithConnector> _conditionRedirectedToNodeBuilder;
+    private readonly ConditionBuilder<IConnector<IConditionStartGroupWithNode>> _conditionRedirectedToConnectorAllowingGroupedConditionAndNode;
+    private readonly ConditionBuilder<IConnector<IConditionStartGroupWithCondition>> _conditionRedirectedToConnectorAllowingGroupedCondition;
+    private readonly ConditionBuilder<INodeAndConnectorWithGroupedCondition> _conditionRedirectedToNodeAndConnectorAllowingGroupedCondition;
     
-    private readonly ConnectorBuilder<ICondition<IConnectorAndConditionStartGroup>> _connectorRedirectedToConditionStartGroupBuilder;
-    private readonly ConnectorBuilder<ICondition<IConnectorAndConditionEndGroup>> _connectorRedirectedToConditionEndGroupBuilder;
-    private readonly ConnectorBuilder<ICondition<INodeAndConnector>> _createTransitiveConnectorBuilder;
-    private readonly ConnectorBuilder<IConditionStartGroupAndConditionAllowingNode> _connectorRedirectedToConditionStartGroupAllowingNode;
-    private readonly ConnectorBuilder<IConditionStartGroupAndCondition> _connectorRedirectedToConditionStartGroupAndCondition;
+    private readonly ConnectorBuilder<ICondition<IConnectorWithConditionStartGroup>> _connectorRedirectedToConditionStartGroupBuilder;
+    private readonly ConnectorBuilder<ICondition<IConnectorWithConditionEndGroup>> _connectorRedirectedToConditionEndGroupBuilder;
+    private readonly ConnectorBuilder<ICondition<INodeWithConnector>> _createTransitiveConnectorBuilder;
+    private readonly ConnectorBuilder<IConditionStartGroupWithNode> _connectorRedirectedToConditionStartGroupAllowingNode;
+    private readonly ConnectorBuilder<IConditionStartGroupWithCondition> _connectorRedirectedToConditionStartGroupAndCondition;
     
     public XPathBuilderFactory(XPathProcessor xPathProcessor)
     {
@@ -38,54 +38,54 @@ public class XPathBuilderFactory
         _conditionGroupBuilder = new ConditionGroupBuilder(xPathProcessor);
 
         // CompositeBuilders
-        _nodeAndConditionBuilder = new NodeAndConditionBuilder();
-        _nodeAndConnectorBuilder = new NodeAndConnectorBuilder();
-        _connectorAndConditionStartGroupBuilder = new ConnectorAndConditionStartGroupBuilder();
-        _connectorAndConditionEndGroupBuilder = new ConnectorAndConditionEndGroupBuilder();
-        _conditionStartGroupAndConditionBuilder = new ConditionStartGroupAndConditionBuilder();
-        _conditionStartGroupAndConditionAllowingNodeBuilder = new ConditionStartGroupAndConditionAllowingNodeBuilder();
-        _nodeAndConnectorAllowingGroupedConditionBuilder = new NodeAndConnectorAllowingGroupedConditionBuilder();
+        _nodeWithConditionBuilder = new NodeWithConditionBuilder();
+        _nodeWithConnectorBuilder = new NodeWithConnectorBuilder();
+        _connectorWithConditionStartGroupBuilder = new ConnectorWithConditionStartGroupBuilder();
+        _connectorWithConditionEndGroupBuilder = new ConnectorWithConditionEndGroupBuilder();
+        _conditionStartGroupWithConditionBuilder = new ConditionStartGroupWithConditionBuilder();
+        _conditionStartGroupWithNodeBuilder = new ConditionStartGroupWithNodeBuilder();
+        _nodeAndConnectorWithGroupedConditionBuilder = new NodeAndConnectorWithGroupedConditionBuilder();
 
         // ConditionBuilders
-        _conditionRedirectedToStartGroupBuilder = new ConditionBuilder<IConnectorAndConditionStartGroup>(xPathProcessor);
-        _conditionRedirectedToEndGroupBuilder = new ConditionBuilder<IConnectorAndConditionEndGroup>(xPathProcessor);
-        _conditionRedirectedToNodeBuilder = new ConditionBuilder<INodeAndConnector>(xPathProcessor);
+        _conditionRedirectedToStartGroupBuilder = new ConditionBuilder<IConnectorWithConditionStartGroup>(xPathProcessor);
+        _conditionRedirectedToEndGroupBuilder = new ConditionBuilder<IConnectorWithConditionEndGroup>(xPathProcessor);
+        _conditionRedirectedToNodeBuilder = new ConditionBuilder<INodeWithConnector>(xPathProcessor);
         _conditionRedirectedToConnectorAllowingGroupedConditionAndNode =
-            new ConditionBuilder<IConnector<IConditionStartGroupAndConditionAllowingNode>>(xPathProcessor);
+            new ConditionBuilder<IConnector<IConditionStartGroupWithNode>>(xPathProcessor);
         _conditionRedirectedToConnectorAllowingGroupedCondition =
-            new ConditionBuilder<IConnector<IConditionStartGroupAndCondition>>(xPathProcessor);
+            new ConditionBuilder<IConnector<IConditionStartGroupWithCondition>>(xPathProcessor);
         _conditionRedirectedToNodeAndConnectorAllowingGroupedCondition =
-            new ConditionBuilder<INodeAndConnectorAllowingGroupedCondition>(xPathProcessor);
+            new ConditionBuilder<INodeAndConnectorWithGroupedCondition>(xPathProcessor);
 
         // ConnectorBuilders
-        _connectorRedirectedToConditionStartGroupBuilder = new ConnectorBuilder<ICondition<IConnectorAndConditionStartGroup>>(xPathProcessor);
-        _connectorRedirectedToConditionEndGroupBuilder = new ConnectorBuilder<ICondition<IConnectorAndConditionEndGroup>>(xPathProcessor);
-        _createTransitiveConnectorBuilder = new ConnectorBuilder<ICondition<INodeAndConnector>>(xPathProcessor);
-        _connectorRedirectedToConditionStartGroupAllowingNode = new ConnectorBuilder<IConditionStartGroupAndConditionAllowingNode>(xPathProcessor);
-        _connectorRedirectedToConditionStartGroupAndCondition = new ConnectorBuilder<IConditionStartGroupAndCondition>(xPathProcessor);
+        _connectorRedirectedToConditionStartGroupBuilder = new ConnectorBuilder<ICondition<IConnectorWithConditionStartGroup>>(xPathProcessor);
+        _connectorRedirectedToConditionEndGroupBuilder = new ConnectorBuilder<ICondition<IConnectorWithConditionEndGroup>>(xPathProcessor);
+        _createTransitiveConnectorBuilder = new ConnectorBuilder<ICondition<INodeWithConnector>>(xPathProcessor);
+        _connectorRedirectedToConditionStartGroupAllowingNode = new ConnectorBuilder<IConditionStartGroupWithNode>(xPathProcessor);
+        _connectorRedirectedToConditionStartGroupAndCondition = new ConnectorBuilder<IConditionStartGroupWithCondition>(xPathProcessor);
 
-        _nodeBuilder.Init(_nodeAndConditionBuilder);
-        _conditionGroupBuilder.Init(_conditionRedirectedToEndGroupBuilder, _nodeAndConnectorAllowingGroupedConditionBuilder);
-        _nodeAndConditionBuilder.Init(_nodeBuilder, _conditionRedirectedToNodeBuilder, _conditionGroupBuilder);
-        _nodeAndConnectorBuilder.Init(_nodeBuilder, _createTransitiveConnectorBuilder, _conditionGroupBuilder);
-        _connectorAndConditionStartGroupBuilder.Init(_connectorRedirectedToConditionStartGroupBuilder, _conditionGroupBuilder);
-        _connectorAndConditionEndGroupBuilder.Init(_connectorRedirectedToConditionEndGroupBuilder, _conditionGroupBuilder);
-        _conditionStartGroupAndConditionBuilder.Init(_conditionRedirectedToConnectorAllowingGroupedCondition, _conditionGroupBuilder);
-        _conditionStartGroupAndConditionAllowingNodeBuilder.Init(_conditionRedirectedToNodeAndConnectorAllowingGroupedCondition, _conditionGroupBuilder);
-        _nodeAndConnectorAllowingGroupedConditionBuilder.Init(_nodeBuilder, _connectorRedirectedToConditionStartGroupAllowingNode);
+        _nodeBuilder.Init(_nodeWithConditionBuilder);
+        _conditionGroupBuilder.Init(_conditionRedirectedToEndGroupBuilder, _nodeAndConnectorWithGroupedConditionBuilder);
+        _nodeWithConditionBuilder.Init(_nodeBuilder, _conditionRedirectedToNodeBuilder, _conditionGroupBuilder);
+        _nodeWithConnectorBuilder.Init(_nodeBuilder, _createTransitiveConnectorBuilder, _conditionGroupBuilder);
+        _connectorWithConditionStartGroupBuilder.Init(_connectorRedirectedToConditionStartGroupBuilder, _conditionGroupBuilder);
+        _connectorWithConditionEndGroupBuilder.Init(_connectorRedirectedToConditionEndGroupBuilder, _conditionGroupBuilder);
+        _conditionStartGroupWithConditionBuilder.Init(_conditionRedirectedToConnectorAllowingGroupedCondition, _conditionGroupBuilder);
+        _conditionStartGroupWithNodeBuilder.Init(_conditionRedirectedToNodeAndConnectorAllowingGroupedCondition, _conditionGroupBuilder);
+        _nodeAndConnectorWithGroupedConditionBuilder.Init(_nodeBuilder, _connectorRedirectedToConditionStartGroupAllowingNode);
         
-        _conditionRedirectedToStartGroupBuilder.Init(_nodeBuilder, _connectorAndConditionStartGroupBuilder);
-        _conditionRedirectedToEndGroupBuilder.Init(_nodeBuilder, _connectorAndConditionEndGroupBuilder);
-        _conditionRedirectedToNodeBuilder.Init(_nodeBuilder, _nodeAndConnectorBuilder);
+        _conditionRedirectedToStartGroupBuilder.Init(_nodeBuilder, _connectorWithConditionStartGroupBuilder);
+        _conditionRedirectedToEndGroupBuilder.Init(_nodeBuilder, _connectorWithConditionEndGroupBuilder);
+        _conditionRedirectedToNodeBuilder.Init(_nodeBuilder, _nodeWithConnectorBuilder);
         _conditionRedirectedToConnectorAllowingGroupedConditionAndNode.Init(_nodeBuilder, _connectorRedirectedToConditionStartGroupAllowingNode);
         _conditionRedirectedToConnectorAllowingGroupedCondition.Init(_nodeBuilder, _connectorRedirectedToConditionStartGroupAndCondition);
         _conditionRedirectedToNodeAndConnectorAllowingGroupedCondition.Init(_nodeBuilder,
-            _nodeAndConnectorAllowingGroupedConditionBuilder);
+            _nodeAndConnectorWithGroupedConditionBuilder);
         
         _connectorRedirectedToConditionStartGroupBuilder.Init(_conditionRedirectedToStartGroupBuilder);
         _connectorRedirectedToConditionEndGroupBuilder.Init(_conditionRedirectedToEndGroupBuilder);
-        _createTransitiveConnectorBuilder.Init(_nodeAndConditionBuilder);
-        _connectorRedirectedToConditionStartGroupAllowingNode.Init(_conditionStartGroupAndConditionAllowingNodeBuilder);
+        _createTransitiveConnectorBuilder.Init(_nodeWithConditionBuilder);
+        _connectorRedirectedToConditionStartGroupAllowingNode.Init(_conditionStartGroupWithNodeBuilder);
     }
 
     public INode CreateNodeBuilder()
@@ -93,9 +93,9 @@ public class XPathBuilderFactory
         return _nodeBuilder;
     }
 
-    public INodeAndCondition CreateNodeAndConditionBuilder()
+    public INodeWithCondition CreateNodeAndConditionBuilder()
     {
-        return _nodeAndConditionBuilder;
+        return _nodeWithConditionBuilder;
     }
 
     public IConditionEndGroup CreateConditionEndGroupBuilder()
@@ -108,42 +108,42 @@ public class XPathBuilderFactory
         return _conditionGroupBuilder;
     }
 
-    public IConnectorAndConditionStartGroup CreateConnectorAndConditionStartGroupBuilder()
+    public IConnectorWithConditionStartGroup CreateConnectorAndConditionStartGroupBuilder()
     {
-        return _connectorAndConditionStartGroupBuilder;
+        return _connectorWithConditionStartGroupBuilder;
     }
 
-    public IConnectorAndConditionEndGroup CreateConnectorAndConditionEndGroupBuilder()
+    public IConnectorWithConditionEndGroup CreateConnectorAndConditionEndGroupBuilder()
     {
-        return _connectorAndConditionEndGroupBuilder;
+        return _connectorWithConditionEndGroupBuilder;
     }
 
-    public ICondition<IConnectorAndConditionStartGroup> CreateConditionRedirectedToStartGroupBuilder()
+    public ICondition<IConnectorWithConditionStartGroup> CreateConditionRedirectedToStartGroupBuilder()
     {
         return _conditionRedirectedToStartGroupBuilder;
     }
 
-    public ICondition<IConnectorAndConditionEndGroup> CreateConditionRedirectedToEndGroupBuilder()
+    public ICondition<IConnectorWithConditionEndGroup> CreateConditionRedirectedToEndGroupBuilder()
     {
         return _conditionRedirectedToEndGroupBuilder;
     }
 
-    public ICondition<INodeAndConnector> CreateConditionRedirectedToNodeBuilder()
+    public ICondition<INodeWithConnector> CreateConditionRedirectedToNodeBuilder()
     {
         return _conditionRedirectedToNodeBuilder;
     }
 
-    public IConnector<ICondition<IConnectorAndConditionStartGroup>> CreateConnectorRedirectedToConditionStartGroupBuilder()
+    public IConnector<ICondition<IConnectorWithConditionStartGroup>> CreateConnectorRedirectedToConditionStartGroupBuilder()
     {
         return _connectorRedirectedToConditionStartGroupBuilder;
     }
 
-    public IConnector<ICondition<IConnectorAndConditionEndGroup>> CreateConnectorRedirectedToConditionEndGroupBuilder()
+    public IConnector<ICondition<IConnectorWithConditionEndGroup>> CreateConnectorRedirectedToConditionEndGroupBuilder()
     {
         return _connectorRedirectedToConditionEndGroupBuilder;
     }
 
-    public IConnector<ICondition<INodeAndConnector>> CreateTransitiveConnectorBuilder()
+    public IConnector<ICondition<INodeWithConnector>> CreateTransitiveConnectorBuilder()
     {
         return _createTransitiveConnectorBuilder;
     }

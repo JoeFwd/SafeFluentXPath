@@ -10,5 +10,5 @@ public interface IConditionStartGroup
      * </summary>
      * <returns>The builder for adding conditions and connectors within the group.</returns>
      */
-    ICondition<IConnectorAndConditionEndGroup> StartGroupCondition();
+    ICondition<IConnectorWithConditionEndGroup> StartGroupCondition();
 }

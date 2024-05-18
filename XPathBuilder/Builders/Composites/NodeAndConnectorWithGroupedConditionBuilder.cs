@@ -3,28 +3,28 @@ using XpathBuilder.Api.Composites;
 
 namespace XpathBuilder.Builders.Composites;
 
-public class NodeAndConnectorAllowingGroupedConditionBuilder : INodeAndConnectorAllowingGroupedCondition
+public class NodeAndConnectorWithGroupedConditionBuilder : INodeAndConnectorWithGroupedCondition
 {
     private INode _node;
-    private IConnector<IConditionStartGroupAndConditionAllowingNode> _connectorAllowingGroupedCondition;
+    private IConnector<IConditionStartGroupWithNode> _connectorAllowingGroupedCondition;
     
-    public void Init(INode node, IConnector<IConditionStartGroupAndConditionAllowingNode> connector)
+    public void Init(INode node, IConnector<IConditionStartGroupWithNode> connector)
     {
         _node = node;
         _connectorAllowingGroupedCondition = connector;
     }
     
-    public INodeAndCondition Root(string elementName)
+    public INodeWithCondition Root(string elementName)
     {
         return _node.Root(elementName);
     }
 
-    public INodeAndCondition ChildNode(string elementName)
+    public INodeWithCondition ChildNode(string elementName)
     {
         return _node.ChildNode(elementName);
     }
 
-    public INodeAndCondition Descendant(string descendant)
+    public INodeWithCondition Descendant(string descendant)
     {
         return _node.Descendant(descendant);
     }
@@ -34,12 +34,12 @@ public class NodeAndConnectorAllowingGroupedConditionBuilder : INodeAndConnector
         return _node.Build();
     }
 
-    public IConditionStartGroupAndConditionAllowingNode And()
+    public IConditionStartGroupWithNode And()
     {
         return _connectorAllowingGroupedCondition.And();
     }
 
-    public IConditionStartGroupAndConditionAllowingNode Or()
+    public IConditionStartGroupWithNode Or()
     {
         return _connectorAllowingGroupedCondition.Or();
     }

@@ -3,8 +3,8 @@
 namespace XpathBuilder.Api;
 
 public interface IXPathBuilder : INode,
-    IConnector<ICondition<IConnectorAndConditionEndGroup>>, IConditionStartGroup, IConditionEndGroup,
-    ICondition<INodeAndConnector>, ICondition<IConnectorAndConditionEndGroup>,
-    IConnector<ICondition<IConnectorAndConditionStartGroup>>
+    IConnector<ICondition<IConnectorWithConditionEndGroup>>, IConditionStartGroup, IConditionEndGroup,
+    ICondition<INodeWithConnector>, ICondition<IConnectorWithConditionEndGroup>,
+    IConnector<ICondition<IConnectorWithConditionStartGroup>>
 {
 }
