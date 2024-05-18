@@ -6,9 +6,9 @@ public interface IConditionEndGroup
 {
     /**
      * <summary>
-     * This method closes the xpath condition group.
+     * Closes the XPath condition group.
      * </summary>
-     * <returns>The builder allowing to add xpath nodes and xpath connectors</returns>
+     * <returns>The builder allowing to add XPath nodes and connectors</returns>
      */
     INodeAndConnectorAllowingGroupedCondition EndConditionGroup();
 }

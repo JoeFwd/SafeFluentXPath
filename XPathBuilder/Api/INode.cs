@@ -6,41 +6,39 @@ public interface INode
 {
     /**
      * <summary>
-     * This method adds the root element to the XPath.
-     * If the XPath is empty and the parameter is not empty, then the element name is added as the root element.
+     * Adds the root element to the XPath.
      * </summary>
      * <param name="elementName">The root element name</param>
-     * <returns>The XPathBuilder instance.</returns>
+     * <returns>The current builder instance.</returns>
      */
     INodeAndCondition Root(string elementName);
 
     /**
      * <summary>
-     * This method adds a child node to the XPath.
-     * This basically prefixes the descendant name with "/".
+     * Adds a child node to the XPath.
      * </summary>
      * <param name="elementName">The child node name</param>
-     * <returns>The XPathBuilder instance.</returns>
+     * <returns>The current builder instance.</returns>
      */
     INodeAndCondition ChildNode(string elementName);
 
     /**
      * <summary>
-     * This method adds a descendant to the XPath.
-     * This basically prefixes the descendant name with "//".
+     * Adds a descendant to the XPath.
      * </summary>
      * <param name="descendant">The descendant name</param>
-     * <returns>The XPathBuilder instance.</returns>
+     * <returns>The current builder instance.</returns>
      * <remarks>
-     * If the descendant name is empty, then the method just returns the current instance.
+     * If the descendant name is empty, the method returns the current instance.
      * </remarks>
      */
     INodeAndCondition Descendant(string descendant);
 
     /**
      * <summary>
-     * Returns the XPath string.
+     * Builds and returns the XPath string.
      * </summary>
+     * <returns>The constructed XPath string.</returns>
      */
     string Build();
 }

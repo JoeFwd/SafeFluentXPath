@@ -2,18 +2,19 @@
 
 public interface IConnector<out TReturn>
 {
-
     /**
      * <summary>
-     * This method adds the and operator to the XPath.
+     * Adds the 'and' operator to the XPath.
      * </summary>
+     * <returns>The current builder instance.</returns>
      */
     TReturn And();
 
     /**
      * <summary>
-     * This method adds the or operator to the XPath.
+     * Adds the 'or' operator to the XPath.
      * </summary>
+     * <returns>The current builder instance.</returns>
      */
     TReturn Or();
 }

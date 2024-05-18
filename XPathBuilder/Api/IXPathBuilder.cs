@@ -7,5 +7,4 @@ public interface IXPathBuilder : INode,
     ICondition<INodeAndConnector>, ICondition<IConnectorAndConditionEndGroup>,
     IConnector<ICondition<IConnectorAndConditionStartGroup>>
 {
-    
 }
