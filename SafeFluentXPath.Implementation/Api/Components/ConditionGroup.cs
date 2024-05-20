@@ -9,14 +9,14 @@ internal class ConditionGroup(XPathProcessor xPathProcessor) : IConditionStartGr
 {
     private ICondition<IConnectorAndConditionEndGroup> _conditionBuilder;
 
-    private INodeAndConnectorAndGroupedCondition _nodeAndConnector;
+    private IContextNodeAndConnectorAndGroupedCondition _contextNodeAndConnector;
 
     internal void Init(
         ICondition<IConnectorAndConditionEndGroup> conditionBuilder,
-        INodeAndConnectorAndGroupedCondition nodeAndConnector)
+        IContextNodeAndConnectorAndGroupedCondition contextNodeAndConnector)
     {
         _conditionBuilder = conditionBuilder;
-        _nodeAndConnector = nodeAndConnector;
+        _contextNodeAndConnector = contextNodeAndConnector;
     }
 
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
@@ -25,9 +25,9 @@ internal class ConditionGroup(XPathProcessor xPathProcessor) : IConditionStartGr
         return _conditionBuilder;
     }
 
-    public INodeAndConnectorAndGroupedCondition EndConditionGroup()
+    public IContextNodeAndConnectorAndGroupedCondition EndConditionGroup()
     {
         xPathProcessor.AddXPathComponent(new GroupedConditionEndProcessor());
-        return _nodeAndConnector;
+        return _contextNodeAndConnector;
     }
 }

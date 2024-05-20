@@ -11,47 +11,32 @@ public class XPathBuilder : IXPath
     private readonly XPathProcessor _xPathProcessor = new ();
 
     private readonly INode _node;
-
-    private readonly IConnector<ICondition<IConnectorAndConditionStartGroup>>
-        _connectorRedirectedToChainedCondition;
-
-    private readonly IConnector<ICondition<IConnectorAndConditionEndGroup>>
-        _connectorRedirectedToConditionEndGroup;
-
-    private readonly IConditionStartGroup _conditionStartGroup;
-    private readonly IConditionEndGroup _conditionEndGroup;
-    private readonly ICondition<INodeAndConnector> _conditionRedirectedToNode;
-    private readonly ICondition<IConnectorAndConditionEndGroup> _conditionRedirectedToEndGroup;
+    private readonly IContextNode _contextNode;
 
     public XPathBuilder()
     {
         var componentFactory = new ComponentFactory(_xPathProcessor);
         _node = componentFactory.CreateNodeComponent();
-        _connectorRedirectedToChainedCondition = componentFactory.CreateConnectorAndConditionStartGroupComponent();
-        _connectorRedirectedToConditionEndGroup = componentFactory.CreateConnectorAndConditionEndGroupComponent();
-        _conditionStartGroup = componentFactory.CreateConditionStartGroupComponent();
-        _conditionEndGroup = componentFactory.CreateConditionEndGroupComponent();
-        _conditionRedirectedToNode = componentFactory.CreateConditionRedirectedToNodeComponent();
-        _conditionRedirectedToEndGroup = componentFactory.CreateConditionRedirectedToEndGroupComponent();
+        _contextNode = componentFactory.CreateContextNodeComponent();
     }
 
-    public INodeAndCondition Element(string elementName)
+    public IContextNodeAndCondition Element(string elementName)
     {
         return _node.Element(elementName);
     }
 
-    public INodeAndCondition ChildElement(string elementName)
+    public IContextNodeAndCondition ChildElement(string elementName)
     {
-        return _node.ChildElement(elementName);
+        return _contextNode.ChildElement(elementName);
     }
 
-    public INodeAndCondition Descendant(string descendant)
+    public IContextNodeAndCondition Descendant(string descendant)
     {
-        return _node.Descendant(descendant);
+        return _contextNode.Descendant(descendant);
     }
 
     public string Build()
     {
-        return _xPathProcessor.Build();
+        return _contextNode.Build();
     }
 }

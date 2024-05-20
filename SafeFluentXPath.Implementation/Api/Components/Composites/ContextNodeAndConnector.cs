@@ -3,15 +3,15 @@ using SafeFluentXPath.Api.Components.Composites;
 
 namespace SafeFluentXPath.Implementation.Api.Components.Composites;
 
-internal class NodeAndConnector : INodeAndConnector
+internal class ContextNodeAndConnector : IContextNodeAndConnector
 {
-    private INode _node;
+    private IContextNode _node;
 
-    private IConnector<ICondition<INodeAndConnector>> _connector;
+    private IConnector<ICondition<IContextNodeAndConnector>> _connector;
 
     private IConditionStartGroup _conditionStartGroup;
 
-    internal void Init(INode node, IConnector<ICondition<INodeAndConnector>> connector,
+    internal void Init(IContextNode node, IConnector<ICondition<IContextNodeAndConnector>> connector,
         IConditionStartGroup conditionStartGroup)
     {
         _node = node;
@@ -19,17 +19,12 @@ internal class NodeAndConnector : INodeAndConnector
         _conditionStartGroup = conditionStartGroup;
     }
     
-    public INodeAndCondition Element(string elementName)
-    {
-        return _node.Element(elementName);
-    }
-
-    public INodeAndCondition ChildElement(string elementName)
+    public IContextNodeAndCondition ChildElement(string elementName)
     {
         return _node.ChildElement(elementName);
     }
 
-    public INodeAndCondition Descendant(string descendant)
+    public IContextNodeAndCondition Descendant(string descendant)
     {
         return _node.Descendant(descendant);
     }
@@ -39,12 +34,12 @@ internal class NodeAndConnector : INodeAndConnector
         return _node.Build();
     }
 
-    public ICondition<INodeAndConnector> And()
+    public ICondition<IContextNodeAndConnector> And()
     {
         return _connector.And();
     }
 
-    public ICondition<INodeAndConnector> Or()
+    public ICondition<IContextNodeAndConnector> Or()
     {
         return _connector.Or();
     }

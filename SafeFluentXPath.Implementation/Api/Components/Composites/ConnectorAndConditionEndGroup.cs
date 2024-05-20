@@ -25,7 +25,7 @@ internal class ConnectorAndConditionEndGroup : IConnectorAndConditionEndGroup
         return _connector.Or();
     }
 
-    public INodeAndConnectorAndGroupedCondition EndConditionGroup()
+    public IContextNodeAndConnectorAndGroupedCondition EndConditionGroup()
     {
         return _conditionEndGroup.EndConditionGroup();
     }

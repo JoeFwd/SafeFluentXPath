@@ -3,58 +3,53 @@ using SafeFluentXPath.Api.Components.Composites;
 
 namespace SafeFluentXPath.Implementation.Api.Components.Composites;
 
-internal class NodeAndCondition : INodeAndCondition
+internal class ContextNodeAndCondition : IContextNodeAndCondition
 {
-    private INode _node;
+    private IContextNode _contextNode;
 
-    private ICondition<INodeAndConnector> _conditionRedirectedToNodeAndConnector;
+    private ICondition<IContextNodeAndConnector> _conditionRedirectedToNodeAndConnector;
 
     private IConditionStartGroup _conditionStartGroup;
 
-    internal void Init(INode node, ICondition<INodeAndConnector> conditionRedirectedToNodeAndConnector,
+    internal void Init(IContextNode contextNode, ICondition<IContextNodeAndConnector> conditionRedirectedToNodeAndConnector,
         IConditionStartGroup conditionStartGroup)
     {
-        _node = node;
+        _contextNode = contextNode;
         _conditionRedirectedToNodeAndConnector = conditionRedirectedToNodeAndConnector;
         _conditionStartGroup = conditionStartGroup;
     }
-    
-    public INodeAndCondition Element(string elementName)
+
+    public IContextNodeAndCondition ChildElement(string elementName)
     {
-        return _node.Element(elementName);
+        return _contextNode.ChildElement(elementName);
     }
 
-    public INodeAndCondition ChildElement(string elementName)
+    public IContextNodeAndCondition Descendant(string descendant)
     {
-        return _node.ChildElement(elementName);
+        return _contextNode.Descendant(descendant);
     }
 
-    public INodeAndCondition Descendant(string descendant)
-    {
-        return _node.Descendant(descendant);
-    }
-
-    public INodeAndConnector ChildElementsAtSameLevel(params string[] elementNames)
+    public IContextNodeAndConnector ChildElementsAtSameLevel(params string[] elementNames)
     {
         return _conditionRedirectedToNodeAndConnector.ChildElementsAtSameLevel(elementNames);
     }
 
     public string Build()
     {
-        return _node.Build();
+        return _contextNode.Build();
     }
 
-    public INodeAndConnector WithAttribute(string attributeName, string attributeValue)
+    public IContextNodeAndConnector WithAttribute(string attributeName, string attributeValue)
     {
         return _conditionRedirectedToNodeAndConnector.WithAttribute(attributeName, attributeValue);
     }
 
-    public INodeAndConnector AtPosition(int position)
+    public IContextNodeAndConnector AtPosition(int position)
     {
         return _conditionRedirectedToNodeAndConnector.AtPosition(position);
     }
 
-    public INodeAndConnector HasName(string nodeName)
+    public IContextNodeAndConnector HasName(string nodeName)
     {
         return _conditionRedirectedToNodeAndConnector.HasName(nodeName);
     }

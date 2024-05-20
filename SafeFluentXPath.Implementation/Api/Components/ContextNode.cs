@@ -5,12 +5,7 @@ using SafeFluentXPath.Implementation.Api.Processors.Components;
 
 namespace SafeFluentXPath.Implementation.Api.Components;
 
-/**
-* <summary>
-* This class provides a way to build an XPath.
-* </summary>
-*/
-internal class Node(XPathProcessor xPathProcessor) : INode
+internal class ContextNode(XPathProcessor xPathProcessor) : IContextNode
 {
     private IContextNodeAndCondition _contextNodeAndCondition;
 
@@ -19,13 +14,19 @@ internal class Node(XPathProcessor xPathProcessor) : INode
         _contextNodeAndCondition = nodeAndConditionBuilder;
     }
 
-    public IContextNodeAndCondition Element(string elementName)
+    public IContextNodeAndCondition ChildElement(string elementName)
     {
-        if (xPathProcessor.GetXPathComponentCount() == 0 && !string.IsNullOrWhiteSpace(elementName))
-        {
-            xPathProcessor.AddXPathComponent(new NodeProcessor($"{elementName}"));
-        }
+        if (string.IsNullOrWhiteSpace(elementName)) return _contextNodeAndCondition;
 
+        xPathProcessor.AddXPathComponent(new NodeProcessor($"/{elementName}"));
+        return _contextNodeAndCondition;
+    }
+
+    public IContextNodeAndCondition Descendant(string descendant)
+    {
+        if (string.IsNullOrWhiteSpace(descendant)) return _contextNodeAndCondition;
+
+        xPathProcessor.AddXPathComponent(new NodeProcessor($"//{descendant}"));
         return _contextNodeAndCondition;
     }
 

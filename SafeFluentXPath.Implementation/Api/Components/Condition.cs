@@ -8,11 +8,11 @@ internal class Condition<TReturn>(XPathProcessor xPathProcessor) : ICondition<TR
 {
     private TReturn _returnApi;
 
-    private INode _node;
+    private IContextNode _contextNode;
 
-    internal void Init(INode nodeBuilder, TReturn returnApi)
+    internal void Init(IContextNode nodeBuilder, TReturn returnApi)
     {
-        _node = nodeBuilder;
+        _contextNode = nodeBuilder;
         _returnApi = returnApi;
         
     }
@@ -48,7 +48,7 @@ internal class Condition<TReturn>(XPathProcessor xPathProcessor) : ICondition<TR
         var validElementNames = elementNames.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
         if (validElementNames.Count == 0) return _returnApi;
 
-        var xpathBuilder = _node.ChildElement("*");
+        var xpathBuilder = _contextNode.ChildElement("*");
 
         for (int i = 0; i < validElementNames.Count; i++)
         {
