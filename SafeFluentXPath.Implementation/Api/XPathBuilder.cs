@@ -34,9 +34,4 @@ public class XPathBuilder : IXPath
     {
         return _contextNode.Descendant(descendant);
     }
-
-    public string Build()
-    {
-        return _contextNode.Build();
-    }
 }

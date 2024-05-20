@@ -7,13 +7,16 @@ internal class ConditionStartGroupAndCondition : IConditionStartGroupAndConditio
 {
     private ICondition<IConnector<IConditionStartGroupAndCondition>> _conditionAllowingConnectorWithGroupedCondition;
     private IConditionStartGroup _conditionStartGroup;
+    private IEnd _end;
 
     public void Init(
         ICondition<IConnector<IConditionStartGroupAndCondition>> conditionAllowingConnectorWithGroupedCondition,
-        IConditionStartGroup conditionStartGroup)
+        IConditionStartGroup conditionStartGroup,
+        IEnd end)
     {
         _conditionAllowingConnectorWithGroupedCondition = conditionAllowingConnectorWithGroupedCondition;
         _conditionStartGroup = conditionStartGroup;
+        _end = end;
     }
 
     public IConnector<IConditionStartGroupAndCondition> WithAttribute(string attributeName, string attributeValue)
@@ -39,5 +42,10 @@ internal class ConditionStartGroupAndCondition : IConditionStartGroupAndConditio
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
         return _conditionStartGroup.StartGroupCondition();
+    }
+
+    public string Build()
+    {
+        return _end.Build();
     }
 }

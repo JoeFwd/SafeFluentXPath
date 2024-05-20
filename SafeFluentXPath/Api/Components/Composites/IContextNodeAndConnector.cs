@@ -3,6 +3,7 @@
 public interface IContextNodeAndConnector : 
     IContextNode,
     IConnector<ICondition<IContextNodeAndConnector>>,
-    IConditionStartGroup
+    IConditionStartGroup,
+    IEnd
 {
 }

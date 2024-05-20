@@ -20,10 +20,4 @@ public interface IContextNode
     /// If the descendant name is empty, the method returns the current instance.
     /// </remarks>
     IContextNodeAndCondition Descendant(string descendant);
-
-     /// <summary>
-     /// Builds and returns the XPath string.
-     /// </summary>
-     /// <returns>The constructed XPath string.</returns>
-    string Build();
 }

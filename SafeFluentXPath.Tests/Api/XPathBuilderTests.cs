@@ -14,14 +14,6 @@ public class XPathBuilderTests
     }
 
     [Test]
-    public void Building_WithNoOptions_CreatesEmptyXPath()
-    {
-        var xpath = _xPath.Build();
-
-        Assert.That(xpath, Is.EqualTo(string.Empty));
-    }
-
-    [Test]
     public void BuildingElement_WithEmptyElement_CreatesEmptyXPath()
     {
         var xpathBuilder = _xPath.Element(string.Empty);
@@ -55,99 +47,91 @@ public class XPathBuilderTests
     public void BuildingChildElement_WithEmptyString_DoesNotAppendElement()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .ChildElement(string.Empty);
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement"));
+        Assert.That(xpath, Is.EqualTo(string.Empty));
     }
 
     [Test]
     public void BuildingChildElement_WithNull_DoesNotAppendElement()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .ChildElement(null);
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement"));
+        Assert.That(xpath, Is.EqualTo(string.Empty));
     }
 
     [Test]
     public void BuildingChildElement_WithNonEmptyString_AppendsElementWithAForwardSlash()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .ChildElement("ChildElement");
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+        Assert.That(xpath, Is.EqualTo("/ChildElement"));
     }
 
     [Test]
     public void BuildingChildElements_WithNonEmptyStrings_AppendsElementsWithForwardSlashes()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .ChildElement("ChildElement")
             .ChildElement("SecondChildElement")
             .ChildElementsAtSameLevel();
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement/SecondChildElement"));
+        Assert.That(xpath, Is.EqualTo("/ChildElement/SecondChildElement"));
     }
 
     [Test]
     public void BuildingDescendant_WithEmptyString_DoesNotAppendElement()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .Descendant(string.Empty);
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement"));
+        Assert.That(xpath, Is.EqualTo(string.Empty));
     }
 
     [Test]
     public void BuildingDescendant_WithNull_DoesNotAppendElement()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .Descendant(null);
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement"));
+        Assert.That(xpath, Is.EqualTo(string.Empty));
     }
 
     [Test]
     public void BuildingDescendant_WithNonEmptyString_AppendsElementWithDoubleForwardSlashes()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .Descendant("DescendantElement");
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement//DescendantElement"));
+        Assert.That(xpath, Is.EqualTo("//DescendantElement"));
     }
 
     [Test]
     public void BuildingDescendants_WithNonEmptyStrings_AppendsElementsWithDoubleForwardSlashes()
     {
         var xpathBuilder = _xPath
-            .Element("RootElement")
             .Descendant("DescendantElement")
             .Descendant("SecondDescendantElement");
 
         var xpath = xpathBuilder.Build();
 
-        Assert.That(xpath, Is.EqualTo("RootElement//DescendantElement//SecondDescendantElement"));
+        Assert.That(xpath, Is.EqualTo("//DescendantElement//SecondDescendantElement"));
     }
 
     [Test]
@@ -331,6 +315,19 @@ public class XPathBuilderTests
     }
 
     [Test]
+    public void BuildingCondition_WithAttributeName_DoesIncludeCondition()
+    {
+        var xpathBuilder = _xPath
+            .Element("RootElement")
+            .ChildElement("ChildElement")
+            .WithAttribute("attr", "value1");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("RootElement/ChildElement[@attr='value1']"));
+    }
+
+    [Test]
     public void BuildingCondition_WithNegativePosition_DoesIncludeCondition()
     {
         var xpathBuilder = _xPath
@@ -380,5 +377,17 @@ public class XPathBuilderTests
         var xpath = xpathBuilder.Build();
 
         Assert.That(xpath, Is.EqualTo("RootElement/ChildElement"));
+    }
+
+    [Test]
+    public void BuildingCondition_WithNodeName_DoesIncludeCondition()
+    {
+        var xpathBuilder = _xPath
+            .Element("*")
+            .HasName("name");
+
+        var xpath = xpathBuilder.Build();
+
+        Assert.That(xpath, Is.EqualTo("*[name()='name']"));
     }
 }

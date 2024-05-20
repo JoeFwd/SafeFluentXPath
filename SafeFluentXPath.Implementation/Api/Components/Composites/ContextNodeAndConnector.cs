@@ -11,12 +11,15 @@ internal class ContextNodeAndConnector : IContextNodeAndConnector
 
     private IConditionStartGroup _conditionStartGroup;
 
+    private IEnd _end;
+
     internal void Init(IContextNode node, IConnector<ICondition<IContextNodeAndConnector>> connector,
-        IConditionStartGroup conditionStartGroup)
+        IConditionStartGroup conditionStartGroup, IEnd end)
     {
         _node = node;
         _connector = connector;
         _conditionStartGroup = conditionStartGroup;
+        _end = end;
     }
     
     public IContextNodeAndCondition ChildElement(string elementName)
@@ -27,11 +30,6 @@ internal class ContextNodeAndConnector : IContextNodeAndConnector
     public IContextNodeAndCondition Descendant(string descendant)
     {
         return _node.Descendant(descendant);
-    }
-
-    public string Build()
-    {
-        return _node.Build();
     }
 
     public ICondition<IContextNodeAndConnector> And()
@@ -47,5 +45,10 @@ internal class ContextNodeAndConnector : IContextNodeAndConnector
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
         return _conditionStartGroup.StartGroupCondition();
+    }
+
+    public string Build()
+    {
+        return _end.Build();
     }
 }

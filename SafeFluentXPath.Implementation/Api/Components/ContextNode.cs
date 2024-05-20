@@ -29,9 +29,4 @@ internal class ContextNode(XPathProcessor xPathProcessor) : IContextNode
         xPathProcessor.AddXPathComponent(new NodeProcessor($"//{descendant}"));
         return _contextNodeAndCondition;
     }
-
-    public string Build()
-    {
-        return xPathProcessor.Build();
-    }
 }

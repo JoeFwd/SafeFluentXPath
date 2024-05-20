@@ -9,10 +9,16 @@ internal class ConnectorAndConditionStartGroup : IConnectorAndConditionStartGrou
 
     private IConditionStartGroup _conditionStartGroup;
 
-    internal void Init(IConnector<ICondition<IConnectorAndConditionStartGroup>> connector, IConditionStartGroup conditionEndGroup)
+    private IEnd _end;
+
+    internal void Init(
+        IConnector<ICondition<IConnectorAndConditionStartGroup>> connector,
+        IConditionStartGroup conditionEndGroup,
+        IEnd end)
     {
         _connector = connector;
         _conditionStartGroup = conditionEndGroup;
+        _end = end;
     }
 
     public ICondition<IConnectorAndConditionStartGroup> And()
@@ -28,5 +34,10 @@ internal class ConnectorAndConditionStartGroup : IConnectorAndConditionStartGrou
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
         return _conditionStartGroup.StartGroupCondition();
+    }
+
+    public string Build()
+    {
+        return _end.Build();
     }
 }

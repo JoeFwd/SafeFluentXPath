@@ -28,9 +28,4 @@ internal class Node(XPathProcessor xPathProcessor) : INode
 
         return _contextNodeAndCondition;
     }
-
-    public string Build()
-    {
-        return xPathProcessor.Build();
-    }
 }

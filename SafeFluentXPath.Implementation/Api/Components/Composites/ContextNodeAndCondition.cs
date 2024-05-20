@@ -11,12 +11,18 @@ internal class ContextNodeAndCondition : IContextNodeAndCondition
 
     private IConditionStartGroup _conditionStartGroup;
 
-    internal void Init(IContextNode contextNode, ICondition<IContextNodeAndConnector> conditionRedirectedToNodeAndConnector,
-        IConditionStartGroup conditionStartGroup)
+    private IEnd _end;
+
+    internal void Init(
+        IContextNode contextNode,
+        ICondition<IContextNodeAndConnector> conditionRedirectedToNodeAndConnector,
+        IConditionStartGroup conditionStartGroup,
+        IEnd end)
     {
         _contextNode = contextNode;
         _conditionRedirectedToNodeAndConnector = conditionRedirectedToNodeAndConnector;
         _conditionStartGroup = conditionStartGroup;
+        _end = end;
     }
 
     public IContextNodeAndCondition ChildElement(string elementName)
@@ -34,11 +40,6 @@ internal class ContextNodeAndCondition : IContextNodeAndCondition
         return _conditionRedirectedToNodeAndConnector.ChildElementsAtSameLevel(elementNames);
     }
 
-    public string Build()
-    {
-        return _contextNode.Build();
-    }
-
     public IContextNodeAndConnector WithAttribute(string attributeName, string attributeValue)
     {
         return _conditionRedirectedToNodeAndConnector.WithAttribute(attributeName, attributeValue);
@@ -49,13 +50,18 @@ internal class ContextNodeAndCondition : IContextNodeAndCondition
         return _conditionRedirectedToNodeAndConnector.AtPosition(position);
     }
 
-    public IContextNodeAndConnector HasName(string nodeName)
+    public IContextNodeAndConnector HasName(string elementName)
     {
-        return _conditionRedirectedToNodeAndConnector.HasName(nodeName);
+        return _conditionRedirectedToNodeAndConnector.HasName(elementName);
     }
 
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()
     {
         return _conditionStartGroup.StartGroupCondition();
+    }
+
+    public string Build()
+    {
+        return _end.Build();
     }
 }

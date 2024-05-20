@@ -7,11 +7,13 @@ internal class ContextNodeAndConnectorAndGroupedCondition : IContextNodeAndConne
 {
     private IContextNode _contextNode;
     private IConnector<IConditionStartGroupAndContextNode> _connectorAllowingGroupedCondition;
+    private IEnd _end;
     
-    public void Init(IContextNode contextNode, IConnector<IConditionStartGroupAndContextNode> connector)
+    public void Init(IContextNode contextNode, IConnector<IConditionStartGroupAndContextNode> connector, IEnd end)
     {
         _contextNode = contextNode;
         _connectorAllowingGroupedCondition = connector;
+        _end = end;
     }
 
     public IContextNodeAndCondition ChildElement(string elementName)
@@ -24,11 +26,6 @@ internal class ContextNodeAndConnectorAndGroupedCondition : IContextNodeAndConne
         return _contextNode.Descendant(descendant);
     }
 
-    public string Build()
-    {
-        return _contextNode.Build();
-    }
-
     public IConditionStartGroupAndContextNode And()
     {
         return _connectorAllowingGroupedCondition.And();
@@ -37,5 +34,10 @@ internal class ContextNodeAndConnectorAndGroupedCondition : IContextNodeAndConne
     public IConditionStartGroupAndContextNode Or()
     {
         return _connectorAllowingGroupedCondition.Or();
+    }
+
+    public string Build()
+    {
+        return _end.Build();
     }
 }

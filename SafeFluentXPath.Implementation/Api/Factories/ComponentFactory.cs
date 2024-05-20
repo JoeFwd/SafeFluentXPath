@@ -15,6 +15,7 @@ internal class ComponentFactory
     {
         _node = new Node(xPathProcessor);
         _contextNode = new ContextNode(xPathProcessor);
+        var end = new End(xPathProcessor);
         var conditionGroup = new ConditionGroup(xPathProcessor);
 
         // CompositeBuilders
@@ -47,13 +48,13 @@ internal class ComponentFactory
         _node.Init(contextNodeAndCondition);
         _contextNode.Init(contextNodeAndCondition);
         conditionGroup.Init(conditionRedirectedToEndGroup, contextNodeAndConnectorAndGroupedCondition);
-        contextNodeAndCondition.Init(_contextNode, conditionRedirectedToNode, conditionGroup);
-        contextNodeAndConnector.Init(_contextNode, createTransitiveConnector, conditionGroup);
-        connectorAndConditionStartGroup.Init(connectorRedirectedToConditionStartGroup, conditionGroup);
+        contextNodeAndCondition.Init(_contextNode, conditionRedirectedToNode, conditionGroup, end);
+        contextNodeAndConnector.Init(_contextNode, createTransitiveConnector, conditionGroup, end);
+        connectorAndConditionStartGroup.Init(connectorRedirectedToConditionStartGroup, conditionGroup, end);
         connectorAndConditionEndGroup.Init(connectorRedirectedToConditionEndGroup, conditionGroup);
-        conditionStartGroupAndCondition.Init(conditionRedirectedToConnectorAllowingGroupedCondition, conditionGroup);
+        conditionStartGroupAndCondition.Init(conditionRedirectedToConnectorAllowingGroupedCondition, conditionGroup, end);
         conditionStartGroupAndContextNode.Init(conditionRedirectedToNodeAndConnectorAllowingGroupedCondition, conditionGroup);
-        contextNodeAndConnectorAndGroupedCondition.Init(_contextNode, connectorRedirectedToConditionStartGroupAllowingNode);
+        contextNodeAndConnectorAndGroupedCondition.Init(_contextNode, connectorRedirectedToConditionStartGroupAllowingNode, end);
         
         conditionRedirectedToStartGroup.Init(_contextNode, connectorAndConditionStartGroup);
         conditionRedirectedToEndGroup.Init(_contextNode, connectorAndConditionEndGroup);
