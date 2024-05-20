@@ -14,7 +14,6 @@ internal class Condition<TReturn>(XPathProcessor xPathProcessor) : ICondition<TR
     {
         _contextNode = nodeBuilder;
         _returnApi = returnApi;
-        
     }
 
     public TReturn HasName(string nodeName)
