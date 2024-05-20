@@ -1,6 +1,6 @@
-﻿using SafeFluentXPath.Api.Components.Composites;
+﻿using SafeFluentXPath.Abstraction.Api.Components.Composites;
 
-namespace SafeFluentXPath.Api.Components;
+namespace SafeFluentXPath.Abstraction.Api.Components;
 
 /// <summary>
 /// Represents an interface enabling the grouping of multiple conditions

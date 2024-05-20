@@ -1,6 +1,6 @@
-﻿using SafeFluentXPath.Api.Components;
+﻿using SafeFluentXPath.Abstraction.Api.Components;
 
-namespace SafeFluentXPath.Api;
+namespace SafeFluentXPath.Abstraction.Api;
 
 /// <summary>
 /// Represents a base interface for XPath queries, which allows chaining with various nodes, conditions, and connectors.

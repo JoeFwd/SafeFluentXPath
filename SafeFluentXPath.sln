@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFluentXPath", "SafeFluentXPath\SafeFluentXPath.csproj", "{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFluentXPath.Abstraction", "SafeFluentXPath.Abstraction\SafeFluentXPath.Abstraction.csproj", "{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFluentXPath.Tests", "SafeFluentXPath.Tests\SafeFluentXPath.Tests.csproj", "{CC431BF4-E949-40FE-A690-B7548B51840C}"
 EndProject

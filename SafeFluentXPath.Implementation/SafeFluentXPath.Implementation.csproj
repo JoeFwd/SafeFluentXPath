@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SafeFluentXPath\SafeFluentXPath.csproj" />
+        <ProjectReference Include="..\SafeFluentXPath.Abstraction\SafeFluentXPath.Abstraction.csproj" />
     </ItemGroup>
 
 </Project>

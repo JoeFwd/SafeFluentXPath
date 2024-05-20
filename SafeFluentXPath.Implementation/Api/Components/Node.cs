@@ -1,5 +1,5 @@
-﻿using SafeFluentXPath.Api.Components;
-using SafeFluentXPath.Api.Components.Composites;
+﻿using SafeFluentXPath.Abstraction.Api.Components;
+using SafeFluentXPath.Abstraction.Api.Components.Composites;
 using SafeFluentXPath.Implementation.Api.Processors;
 using SafeFluentXPath.Implementation.Api.Processors.Components;
 

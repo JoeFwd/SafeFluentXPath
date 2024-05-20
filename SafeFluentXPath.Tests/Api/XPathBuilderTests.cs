@@ -1,5 +1,6 @@
-﻿using SafeFluentXPath.Api;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using SafeFluentXPath.Abstraction.Api;
+using SafeFluentXPath.Implementation.Api;
 
 namespace SafeFluentXPath.Tests.Api;
 
@@ -10,7 +11,7 @@ public class XPathBuilderTests
     [SetUp]
     public void Setup()
     {
-        _xPath = new SafeFluentXPath.Implementation.Api.XPathBuilder();
+        _xPath = new XPathBuilder();
     }
 
     [Test]
@@ -260,9 +261,6 @@ public class XPathBuilderTests
 
         Assert.That(xpath, Is.EqualTo("RootElement/*[name()='Node1' or name()='Node2' or name()='Node3']"));
     }
-
-    
-    
     
     [Test]
     public void BuildingChildElementsAtSameLevel_WithEmptyStrings_DoesNotIncludeEmptyElements()

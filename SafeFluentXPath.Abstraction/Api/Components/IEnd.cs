@@ -1,4 +1,4 @@
-﻿namespace SafeFluentXPath.Api.Components;
+﻿namespace SafeFluentXPath.Abstraction.Api.Components;
 
 public interface IEnd
 {

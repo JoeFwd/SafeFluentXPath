@@ -1,4 +1,4 @@
-﻿namespace SafeFluentXPath.Api.Components;
+﻿namespace SafeFluentXPath.Abstraction.Api.Components;
 
 /// <summary>
 /// Represents a connector enabling to creation of conditional XPath expressions.
