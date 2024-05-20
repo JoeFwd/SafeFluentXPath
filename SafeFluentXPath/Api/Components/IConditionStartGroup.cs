@@ -15,11 +15,9 @@ namespace SafeFluentXPath.Api.Components;
 /// </summary>
 public interface IConditionStartGroup
 {
-    /**
-     * <summary>
-     * Starts a new condition group.
-     * </summary>
-     * <returns>The builder for adding conditions and connectors within the group.</returns>
-     */
+    /// <summary>
+    /// Starts a new condition group.
+    /// </summary>
+    /// <returns>The builder for adding conditions and connectors within the group.</returns>
     ICondition<IConnectorAndConditionEndGroup> StartGroupCondition();
 }

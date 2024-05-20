@@ -14,7 +14,7 @@ public interface INode
      * <param name="elementName">The root element name</param>
      * <returns>The current builder instance.</returns>
      */
-    INodeAndCondition Root(string elementName);
+    INodeAndCondition Element(string elementName);
 
     /**
      * <summary>
@@ -23,7 +23,7 @@ public interface INode
      * <param name="elementName">The child node name</param>
      * <returns>The current builder instance.</returns>
      */
-    INodeAndCondition ChildNode(string elementName);
+    INodeAndCondition ChildElement(string elementName);
 
     /**
      * <summary>

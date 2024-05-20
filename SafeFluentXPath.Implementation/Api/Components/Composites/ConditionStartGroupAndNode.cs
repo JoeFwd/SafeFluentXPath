@@ -21,14 +21,14 @@ internal class ConditionStartGroupAndNode : IConditionStartGroupAndNode
         return _conditionAllowingNodeAndConnector.AtPosition(position);
     }
 
-    INodeAndConnectorAndGroupedCondition ICondition<INodeAndConnectorAndGroupedCondition>.NodeHasName(string nodeName)
+    INodeAndConnectorAndGroupedCondition ICondition<INodeAndConnectorAndGroupedCondition>.HasName(string nodeName)
     {
-        return _conditionAllowingNodeAndConnector.NodeHasName(nodeName);
+        return _conditionAllowingNodeAndConnector.HasName(nodeName);
     }
 
-    INodeAndConnectorAndGroupedCondition ICondition<INodeAndConnectorAndGroupedCondition>.ChildNodesAtSameLevel(params string[] elementNames)
+    INodeAndConnectorAndGroupedCondition ICondition<INodeAndConnectorAndGroupedCondition>.ChildElementsAtSameLevel(params string[] elementNames)
     {
-        return _conditionAllowingNodeAndConnector.ChildNodesAtSameLevel(elementNames);
+        return _conditionAllowingNodeAndConnector.ChildElementsAtSameLevel(elementNames);
     }
 
     INodeAndConnectorAndGroupedCondition ICondition<INodeAndConnectorAndGroupedCondition>.WithAttribute(string attributeName, string attributeValue)

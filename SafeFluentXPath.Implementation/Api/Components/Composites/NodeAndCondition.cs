@@ -19,14 +19,14 @@ internal class NodeAndCondition : INodeAndCondition
         _conditionStartGroup = conditionStartGroup;
     }
     
-    public INodeAndCondition Root(string elementName)
+    public INodeAndCondition Element(string elementName)
     {
-        return _node.Root(elementName);
+        return _node.Element(elementName);
     }
 
-    public INodeAndCondition ChildNode(string elementName)
+    public INodeAndCondition ChildElement(string elementName)
     {
-        return _node.ChildNode(elementName);
+        return _node.ChildElement(elementName);
     }
 
     public INodeAndCondition Descendant(string descendant)
@@ -34,9 +34,9 @@ internal class NodeAndCondition : INodeAndCondition
         return _node.Descendant(descendant);
     }
 
-    public INodeAndConnector ChildNodesAtSameLevel(params string[] elementNames)
+    public INodeAndConnector ChildElementsAtSameLevel(params string[] elementNames)
     {
-        return _conditionRedirectedToNodeAndConnector.ChildNodesAtSameLevel(elementNames);
+        return _conditionRedirectedToNodeAndConnector.ChildElementsAtSameLevel(elementNames);
     }
 
     public string Build()
@@ -54,9 +54,9 @@ internal class NodeAndCondition : INodeAndCondition
         return _conditionRedirectedToNodeAndConnector.AtPosition(position);
     }
 
-    public INodeAndConnector NodeHasName(string nodeName)
+    public INodeAndConnector HasName(string nodeName)
     {
-        return _conditionRedirectedToNodeAndConnector.NodeHasName(nodeName);
+        return _conditionRedirectedToNodeAndConnector.HasName(nodeName);
     }
 
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()

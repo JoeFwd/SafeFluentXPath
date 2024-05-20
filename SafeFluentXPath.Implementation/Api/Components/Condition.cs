@@ -17,7 +17,7 @@ internal class Condition<TReturn>(XPathProcessor xPathProcessor) : ICondition<TR
         
     }
 
-    public TReturn NodeHasName(string nodeName)
+    public TReturn HasName(string nodeName)
     {
         if (string.IsNullOrWhiteSpace(nodeName)) return _returnApi;
 
@@ -43,16 +43,16 @@ internal class Condition<TReturn>(XPathProcessor xPathProcessor) : ICondition<TR
         return _returnApi;
     }
 
-    public TReturn ChildNodesAtSameLevel(params string[] elementNames)
+    public TReturn ChildElementsAtSameLevel(params string[] elementNames)
     {
         var validElementNames = elementNames.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
         if (validElementNames.Count == 0) return _returnApi;
 
-        var xpathBuilder = _node.ChildNode("*");
+        var xpathBuilder = _node.ChildElement("*");
 
         for (int i = 0; i < validElementNames.Count; i++)
         {
-            var xpathConditionBuilder = xpathBuilder.NodeHasName(validElementNames[i]);
+            var xpathConditionBuilder = xpathBuilder.HasName(validElementNames[i]);
             if (i < validElementNames.Count - 1)
             {
                 xpathConditionBuilder.Or();

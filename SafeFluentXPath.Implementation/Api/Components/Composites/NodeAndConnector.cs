@@ -19,14 +19,14 @@ internal class NodeAndConnector : INodeAndConnector
         _conditionStartGroup = conditionStartGroup;
     }
     
-    public INodeAndCondition Root(string elementName)
+    public INodeAndCondition Element(string elementName)
     {
-        return _node.Root(elementName);
+        return _node.Element(elementName);
     }
 
-    public INodeAndCondition ChildNode(string elementName)
+    public INodeAndCondition ChildElement(string elementName)
     {
-        return _node.ChildNode(elementName);
+        return _node.ChildElement(elementName);
     }
 
     public INodeAndCondition Descendant(string descendant)

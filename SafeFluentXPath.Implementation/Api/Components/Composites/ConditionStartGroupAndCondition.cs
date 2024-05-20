@@ -26,14 +26,14 @@ internal class ConditionStartGroupAndCondition : IConditionStartGroupAndConditio
         return _conditionAllowingConnectorWithGroupedCondition.AtPosition(position);
     }
 
-    public IConnector<IConditionStartGroupAndCondition> NodeHasName(string nodeName)
+    public IConnector<IConditionStartGroupAndCondition> HasName(string nodeName)
     {
-        return _conditionAllowingConnectorWithGroupedCondition.NodeHasName(nodeName);
+        return _conditionAllowingConnectorWithGroupedCondition.HasName(nodeName);
     }
 
-    public IConnector<IConditionStartGroupAndCondition> ChildNodesAtSameLevel(params string[] elementNames)
+    public IConnector<IConditionStartGroupAndCondition> ChildElementsAtSameLevel(params string[] elementNames)
     {
-        return _conditionAllowingConnectorWithGroupedCondition.ChildNodesAtSameLevel(elementNames);
+        return _conditionAllowingConnectorWithGroupedCondition.ChildElementsAtSameLevel(elementNames);
     }
 
     public ICondition<IConnectorAndConditionEndGroup> StartGroupCondition()

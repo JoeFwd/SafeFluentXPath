@@ -26,12 +26,12 @@ public interface ICondition<out R>
 
     /**
      * <summary>
-     * Adds a condition to check if the node has a specific name.
+     * Adds a condition to check if the element has a specific name.
      * </summary>
-     * <param name="nodeName">The node name</param>
+     * <param name="elementName">The node name</param>
      * <returns>The current builder instance.</returns>
      */
-    R NodeHasName(string nodeName);
+    R HasName(string elementName);
 
     /**
      * <summary>
@@ -40,5 +40,5 @@ public interface ICondition<out R>
      * <param name="elementNames">Names of the child elements</param>
      * <returns>The current builder instance.</returns>
      */
-    R ChildNodesAtSameLevel(params string[] elementNames);
+    R ChildElementsAtSameLevel(params string[] elementNames);
 }

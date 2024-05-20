@@ -19,7 +19,7 @@ internal class Node(XPathProcessor xPathProcessor) : INode
         _nodeAndCondition = nodeAndConditionBuilder;
     }
 
-    public INodeAndCondition Root(string elementName)
+    public INodeAndCondition Element(string elementName)
     {
         if (xPathProcessor.GetXPathComponentCount() == 0 && !string.IsNullOrWhiteSpace(elementName))
         {
@@ -29,7 +29,7 @@ internal class Node(XPathProcessor xPathProcessor) : INode
         return _nodeAndCondition;
     }
 
-    public INodeAndCondition ChildNode(string elementName)
+    public INodeAndCondition ChildElement(string elementName)
     {
         if (string.IsNullOrWhiteSpace(elementName)) return _nodeAndCondition;
 
