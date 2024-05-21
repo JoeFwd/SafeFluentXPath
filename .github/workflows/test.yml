@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
+  push:
+    branches:
+      - dev
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore SafeFluentXPath.sln
+
+      - name: Build solution
+        run: dotnet build SafeFluentXPath.sln --configuration Release --no-restore
+
+      - name: Run unit tests with coverage
+        run: |
+          dotnet test --collect:"XPlat Code Coverage" --results-directory ./coverage
+          mv ./coverage/*/coverage.cobertura.xml ./coverage/coverage.cobertura.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.3.0
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          files: ./coverage/coverage.cobertura.xml
+          fail_ci_if_error: true

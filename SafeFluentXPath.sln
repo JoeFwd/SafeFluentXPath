@@ -1,10 +1,22 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFluentXPath.Abstraction", "SafeFluentXPath.Abstraction\SafeFluentXPath.Abstraction.csproj", "{ECCC6E6C-23DA-4CFE-9CD4-F2F3B1C08D47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFluentXPath.Tests", "SafeFluentXPath.Tests\SafeFluentXPath.Tests.csproj", "{CC431BF4-E949-40FE-A690-B7548B51840C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFluentXPath.Implementation", "SafeFluentXPath.Implementation\SafeFluentXPath.Implementation.csproj", "{BF2BCBF5-CBFF-4D5C-8E79-60F1098F1CB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{556DE17E-14E6-46ED-81D4-3D0110F79970}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\test.yml = .github\workflows\test.yml
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{A92CA540-A938-4DA3-AA38-F0C29504293C}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
